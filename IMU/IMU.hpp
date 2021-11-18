@@ -15,14 +15,14 @@ class IMU {
             return output;            
         }
     } acel_values;
+
+    std::vector<float> read_sensor_data();
 public:
     using ac_dat = acceleration_data; // for tests, otherwise if we need to declare externally (probably not)
 
     IMU(const acceleration_data start);
 
     IMU();
-
-    std::vector<float> read_sensor_data();
 
     acceleration_data get_acel_values();
 
