@@ -2,6 +2,8 @@
 #include "HeightSensor.hpp"
 
 int main() {
-    HeightSensor s;
-    std::cout << "test" << std::endl;
+    HeightSensor height_sensor(99.0f);
+    std::cout << "intial height: " << height_sensor.get_height() << std::endl;
+    height_sensor.set_height(123123.0f);
+    std::cout << "new height: " << height_sensor.get_height() << std::endl;
 }
