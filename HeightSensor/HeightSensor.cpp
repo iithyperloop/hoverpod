@@ -2,7 +2,7 @@
 
 HeightSensor::HeightSensor(float initial_height) : height(initial_height) {}
 
-float HeightSensor::get_height(){
+float HeightSensor::get_height() {
     return height;
 }
 
