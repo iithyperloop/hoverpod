@@ -7,5 +7,5 @@ float HeightSensor::get_height() {
 }
 
 void HeightSensor::set_height(float new_height){
-    height=new_height;
+    height = new_height;
 }
