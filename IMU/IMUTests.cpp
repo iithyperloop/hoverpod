@@ -4,6 +4,14 @@
 
 // let's use c++20 it's the new standard! please
 #undef assert
+/**
+ * @brief Assert if expr_1 == expr_2
+ * 
+ * @tparam T Type of value to get compared
+ * @param expr_1 Value to get compared to the other value
+ * @param expr_2 Value to get compared to the other value
+ * @param line What line the assert is on
+ */
 template<typename T>
 constexpr void assert_s(const T expr_1, const T expr_2, const int line) {
     if (expr_1 != expr_2) {
@@ -15,6 +23,11 @@ constexpr void assert_s(const T expr_1, const T expr_2, const int line) {
 }
 #define assert(expr_1, expr_2) assert_s<decltype(expr_1)>(expr_1, expr_2, __LINE__)
 
+/**
+ * @brief Run IMU tests to make sure setters/getters/failsafes are working
+ * 
+ * @return int Exit code
+ */
 int main() {
     IMU imu; // default constructor, read from sensor
 
