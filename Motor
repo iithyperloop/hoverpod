@@ -1,0 +1,24 @@
+#ifndef MOTOR_H
+#define MOTOR_H
+
+
+class Motor
+{   private:
+        double speed;
+        
+    public:
+        Motor();
+        virtual ~Motor();
+
+        double getSpeed() { 
+            return speed; 
+            }
+        
+        void setSpeed(double val) {
+            speed = val;
+            }
+
+    
+};
+
+#endif // MOTOR_H
