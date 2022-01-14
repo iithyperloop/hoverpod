@@ -1,3 +1,5 @@
+#pragma once
+
 class HeightSensor {
     float height;
 public:

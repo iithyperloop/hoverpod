@@ -47,4 +47,5 @@ int main() {
     std::cout << "Tests passed, Current values:" << std::endl << 
         imu.get_acel_values() << std::endl << imu_1.get_acel_values() <<
         std::endl << imu_2.get_acel_values() << std::endl;
+    return 1;
 }
