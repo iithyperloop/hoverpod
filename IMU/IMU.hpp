@@ -3,6 +3,8 @@
 #include <iostream>
 
 class IMU {
+    std::vector<float> read_sensor_data();
+
     struct acceleration_data {
         float x;
         float y;
@@ -11,13 +13,11 @@ class IMU {
         bool operator==(acceleration_data const& other) const { return other.x == x && other.y == y && other.z == z; }
 
         // allow us to cout << get_acel_values() for debugging and testing
-        friend std::ostream &operator<<(std::ostream &output, const acceleration_data& dat) { 
+        friend std::ostream &operator<<(std::ostream &output, const acceleration_data& dat) {
             output << "{" << dat.x <<  ", " << dat.y << ", " << dat.z << "}";
-            return output;            
+            return output;
         }
     } acel_values;
-
-    std::vector<float> read_sensor_data();
 public:
     using ac_dat = acceleration_data; // for tests, otherwise if we need to declare externally (probably not)
 

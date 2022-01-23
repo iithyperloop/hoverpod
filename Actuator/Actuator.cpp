@@ -23,6 +23,7 @@ bool Actuator::getIsXAngle() {
 }
 
 double Actuator::getAngle() {
+    const auto analogRead = [](int x) -> double {}; // TODO: remove this. just so it compiles.
     if (angle != analogRead(pin)) {
         throw ActuatorException("angle does not match actual angle");
     }
@@ -44,6 +45,7 @@ void Actuator::setAngle(const double a) {
     if (a < MIN_ANGLE || a > MAX_ANGLE) {
         throw ActuatorException("invalid angle");
     }
+    const auto analogWrite = [](int x, int z){}; // TODO: remove this. just so it compiles.
     analogWrite(pin, a);
     angle = a;
 }
