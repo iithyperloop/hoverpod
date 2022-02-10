@@ -16,7 +16,7 @@ void kalman_filter(std::atomic<double>& val) {
 
 int main() {
 	Hyperloop::Thread<double> KalmanFilter(kalman_filter, 0);
-	KalmanFilter.run_asynchronously();
+	KalmanFilter.run_synchronously();
 	while (true) {
 		double val = KalmanFilter.get();
 		printf("Main thread: %f\n", val);
