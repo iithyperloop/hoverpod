@@ -23,7 +23,7 @@ bool Actuator::getIsXAngle() {
 }
 
 double Actuator::getAngle() {
-    const auto analogRead = [](int x) -> double {}; // TODO: remove this. just so it compiles.
+    const auto analogRead = [](int x) -> double { return 0.0; }; // TODO: remove this. just so it compiles.
     if (angle != analogRead(pin)) {
         throw ActuatorException("angle does not match actual angle");
     }
