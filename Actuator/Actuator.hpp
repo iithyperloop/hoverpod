@@ -40,4 +40,8 @@ public:
     void setIsXAngle(const bool xy);
 
     void setAngle(const double a);
+
+    void turn_on();
+
+    void turn_off();
 };

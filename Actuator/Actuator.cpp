@@ -45,7 +45,15 @@ void Actuator::setAngle(const double a) {
     if (a < MIN_ANGLE || a > MAX_ANGLE) {
         throw ActuatorException("invalid angle");
     }
-    const auto analogWrite = [](int x, int z){}; // TODO: remove this. just so it compiles.
+    const auto analogWrite = [](int x, int z) {}; // TODO: remove this. just so it compiles.
     analogWrite(pin, a);
     angle = a;
+}
+
+void Actuator::turn_on() {
+    // TODO: what the HECK do i do here lol
+}
+
+void Actuator::turn_off() {
+    // TODO: what the HECK do i do here lol
 }
