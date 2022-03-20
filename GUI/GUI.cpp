@@ -41,6 +41,6 @@ int main()
 		// } catch (Exception e) {
 				// show empty window with pop up displaying exception e
 		// }
-		// any necessary memory or window clean up
 	// }
+	// any necessary memory or window clean up
 }
