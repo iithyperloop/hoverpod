@@ -18,12 +18,12 @@ namespace Hyperloop {
 			return val.load();
 		}
 
-		void run_synchronously() {
+		void run_asynchronously() {
 			thread.detach();
 		}
 
-		void run_asynchronously() {
-			thread.attach();
+		void run_synchronously() {
+			thread.join();
 		}
 	};
 

@@ -1,19 +1,18 @@
-#include "KalmanFilter.h"
-#include "cmath"
 #include <iostream>
+#include <cmath>
+#include "KalmanFilter.hpp"
+
+KalmanFilter::KalmanFilterException::KalmanFilterException(const std::string m) {
+    message = "KalmanFilterException: " + m;
+}
+
+const char *KalmanFilter::KalmanFilterException::what() const noexcept {
+    return message.c_str();
+}
 
 //default constructor does nothing but make an object and initiate variables
 
-int updates;
-double total_calculated_position;
-double average_Distance_Disparity;
-double noise_calculated[100][100];
-
-KalmanFilter::KalmanFilter() {
-    updates  = 0;
-    total_calculated_position = 0;
-    average_Distance_Disparity = 0;
-}
+KalmanFilter::KalmanFilter() : updates(0), total_calculated_position(0), average_Distance_Disparity(0)  {}
 
 //KalmanFilter given 3 parameters accounts for initial velocity
 KalmanFilter::KalmanFilter(double initialSpeed, double initialAcceleration) {
@@ -46,11 +45,9 @@ double KalmanFilter::measurement_update(double newSpeed, double newAcceleration=
 
     //Updating the total position on the Kalman Filter run
     total_calculated_position += calculatedPosition;
-
     average_Distance_Disparity = (total_calculated_position / updates);
 
     return calculatedPosition;
-
 }
 
 //KalmanFilter noise calculation throughout entire run
@@ -77,5 +74,3 @@ double KalmanFilter::calculating_noise(double calculatedPosition) {
         noise_calculated[updates][1] = abs(average_Distance_Disparity - (total_calculated_position - (total_calculated_position - calculatedPosition)));
     }*/
 }
-
-

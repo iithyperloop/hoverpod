@@ -1,16 +1,21 @@
-#ifndef KALMANFILTER_H_INCLUDED
-#define KALMANFILTER_H_INCLUDED
+#pragma once
 
 class KalmanFilter {
+    int updates;
+    double total_calculated_position;
+    double average_Distance_Disparity;
+    double noise_calculated[100][100];
 
+    class KalmanFilterException : public std::exception {
+        protected:
+            std::string message;
+    public:
+        KalmanFilterException(const std::string m);
 
-        int updates;
-        double total_calculated_position;
-        double average_Distance_Disparity;
-        double noise_calculated[100][100];
+        const char *what() const noexcept override;
+    };
 
     public:
-
         KalmanFilter();
 
         KalmanFilter(double initialSpeed, double initialAcceleration);
@@ -23,5 +28,3 @@ class KalmanFilter {
 
         double calculating_noise(double calculatedposition);
 };
-
-#endif // KALMANFILTER_H_INCLUDED

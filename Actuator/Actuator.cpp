@@ -4,7 +4,7 @@ ActuatorException::ActuatorException(const std::string m) {
     message = "actuatorException: " + m;
 }
 
-const char * ActuatorException::what() const noexcept {
+const char *ActuatorException::what() const noexcept {
     return message.c_str();
 }
 

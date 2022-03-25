@@ -11,6 +11,7 @@ add_library(IMU IMU/IMU.cpp IMU/IMU.hpp)
 add_library(Motor Motor/Motor.cpp Motor/Motor.hpp)
 add_library(LandingGear LandingGear/LandingGear.cpp LandingGear/LandingGear.hpp)
 add_library(Threading Threading/Threading.cpp Threading/Threading.hpp)
+add_library(KalmanFilter KalmanFilter/KalmanFilter.cpp KalmanFilter/KalmanFilter.hpp)
 
 add_executable(Hoverpod Main.cpp)
 
@@ -22,3 +23,4 @@ target_link_libraries(Hoverpod PRIVATE IMU)
 target_link_libraries(Hoverpod PRIVATE Motor)
 target_link_libraries(Hoverpod PRIVATE LandingGear)
 target_link_libraries(Hoverpod PRIVATE Threading)
+target_link_libraries(Hoverpod PRIVATE KalmanFilter)
