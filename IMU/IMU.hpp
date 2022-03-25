@@ -21,23 +21,23 @@ class IMU {
 public:
     using ac_dat = acceleration_data; // for tests, otherwise if we need to declare externally (probably not)
 
-    IMU(const acceleration_data start);
+    IMU(acceleration_data start);
 
     IMU();
 
-    acceleration_data get_acel_values();
+    acceleration_data get_acel_values() const;
 
-    float get_x_acel_value();
+    float get_x_acel_value() const;
 
-    float get_y_acel_value();
+    float get_y_acel_value() const;
 
-    float get_z_acel_value();
+    float get_z_acel_value() const;
 
-    void set_acel_values(const acceleration_data val);
+    void set_acel_values(acceleration_data val);
 
-    void set_x_acel_value(const float val);
+    void set_x_acel_value(float val);
 
-    void set_y_acel_value(const float val);
+    void set_y_acel_value(float val);
 
-    void set_z_acel_value(const float val);
+    void set_z_acel_value(float val);
 };

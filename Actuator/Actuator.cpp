@@ -1,29 +1,29 @@
 #include "Actuator.hpp"
 
-ActuatorException::ActuatorException(const std::string m) {
-    message = "actuatorException: " + m;
+ActuatorException::ActuatorException(const char* m) {
+    message = "actuatorException: " + std::string(m);
 }
 
 const char *ActuatorException::what() const noexcept {
     return message.c_str();
 }
 
-Actuator::Actuator(const int p, const bool xy, const double a) {
+Actuator::Actuator(const int p, const bool xy, const double a) : pin(p), isXAngle(xy), angle(a) {
     setPin(p);
     setIsXAngle(xy);
     setAngle(a);
 }
 
-int Actuator::getPin() {
+int Actuator::getPin() const {
     return pin;
 }
 
-bool Actuator::getIsXAngle() {
+bool Actuator::getIsXAngle() const {
     return isXAngle;
 }
 
-double Actuator::getAngle() {
-    const auto analogRead = [](int x) -> double { return 0.0; }; // TODO: remove this. just so it compiles.
+double Actuator::getAngle() const {
+    constexpr auto analogRead = [](int x) -> double { return 0.0; }; // TODO: remove this. just so it compiles.
     if (angle != analogRead(pin)) {
         throw ActuatorException("angle does not match actual angle");
     }
@@ -45,7 +45,7 @@ void Actuator::setAngle(const double a) {
     if (a < MIN_ANGLE || a > MAX_ANGLE) {
         throw ActuatorException("invalid angle");
     }
-    const auto analogWrite = [](int x, int z) {}; // TODO: remove this. just so it compiles.
+    constexpr auto analogWrite = [](int x, double z) {}; // TODO: remove this. just so it compiles.
     analogWrite(pin, a);
     angle = a;
 }

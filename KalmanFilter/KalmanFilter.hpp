@@ -10,9 +10,9 @@ class KalmanFilter {
         protected:
             std::string message;
     public:
-        KalmanFilterException(const std::string m);
+        explicit KalmanFilterException(const char* m);
 
-        const char *what() const noexcept override;
+        [[nodiscard]] const char *what() const noexcept override;
     };
 
     public:

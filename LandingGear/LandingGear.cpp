@@ -1,7 +1,7 @@
 #include "LandingGear.hpp"
 
-LandingGear::LandingGear() {
-    is_engaged = false; // read sensor don't set to false
+LandingGear::LandingGear() : is_engaged(false) {
+    // read sensor don't set to false
 }
 
 void LandingGear::engage() {
@@ -16,6 +16,6 @@ void LandingGear::disengange() {
     is_engaged = false;
 }
 
-bool LandingGear::get_engaged() {
+bool LandingGear::get_engaged() const {
     return is_engaged;
 }

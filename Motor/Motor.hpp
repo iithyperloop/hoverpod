@@ -6,7 +6,7 @@ class Motor
 public:
     Motor();
 
-    double getSpeed();
+    double getSpeed() const;
 
     void setSpeed(double val);
 };

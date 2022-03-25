@@ -7,9 +7,9 @@ class ActuatorException : public std::exception {
 protected:
     std::string message;
 public:
-    ActuatorException(const std::string m);
+    explicit ActuatorException(const char* m);
 
-    const char *what() const noexcept override;
+    [[nodiscard]] const char *what() const noexcept override;
 };
 
 class Actuator {
@@ -26,20 +26,20 @@ class Actuator {
     static constexpr double MIN_ANGLE = -180;
     static constexpr double MAX_ANGLE = 180;
 public:
-    Actuator(const int p, const bool xy, const double a);
+    Actuator(int p, bool xy, double a);
 
-    int getPin();
+    [[nodiscard]] int getPin() const;
 
-    bool getIsXAngle();
+    [[nodiscard]] bool getIsXAngle() const;
 
-    double getAngle();
+    [[nodiscard]] double getAngle() const;
 
-    void setPin(const int p);
+    void setPin(int p);
 
     // This setter probably isn't necessary. It doesn't check any constraints.
-    void setIsXAngle(const bool xy);
+    void setIsXAngle(bool xy);
 
-    void setAngle(const double a);
+    void setAngle(double a);
 
     void turn_on();
 

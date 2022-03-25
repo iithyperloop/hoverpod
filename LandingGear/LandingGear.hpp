@@ -7,5 +7,5 @@ public:
 
     void engage();
     void disengange();
-    bool get_engaged();
+    bool get_engaged() const;
 };

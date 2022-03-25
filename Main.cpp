@@ -1,11 +1,8 @@
-#include "HeightSensor/HeightSensor.hpp"
-#include "IMU/IMU.hpp"
-#include "Motor/Motor.hpp"
-#include "Actuator/Actuator.hpp"
-#include "Threading/Threading.hpp"
 #include <chrono>
+#include "IMU/IMU.hpp"
+#include "Threading/Threading.hpp"
 
-void kalman_filter(std::atomic<double>& val) {
+[[noreturn]] void kalman_filter(std::atomic<double>& val) {
 	while (true) {
 		std::cout << "Side thread: We executed!\n" << std::endl;
 		const auto orig_val = val.load();
@@ -18,9 +15,9 @@ int main() {
 	Hyperloop::Thread<double> KalmanFilter(kalman_filter, 0);
 	KalmanFilter.run_synchronously();
 	while (true) {
-		double val = KalmanFilter.get();
+		const double val = KalmanFilter.get();
 		printf("Main thread: %f\n", val);
-		if (val == 100000)
+		if (val == 100000.0f)
 			break;
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}

@@ -2,8 +2,8 @@
 #include <cmath>
 #include "KalmanFilter.hpp"
 
-KalmanFilter::KalmanFilterException::KalmanFilterException(const std::string m) {
-    message = "KalmanFilterException: " + m;
+KalmanFilter::KalmanFilterException::KalmanFilterException(const char* m) {
+    message = "KalmanFilterException: " + std::string(m);
 }
 
 const char *KalmanFilter::KalmanFilterException::what() const noexcept {
