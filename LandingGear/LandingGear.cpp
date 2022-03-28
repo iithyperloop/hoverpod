@@ -1,5 +1,11 @@
 #include "LandingGear.hpp"
 
+enum class LandingGearStatus
+{
+    STATUS_OK,
+    STATUS_ERROR
+};
+
 LandingGear::LandingGear() : is_engaged(false) {
     // read sensor don't set to false
 }

@@ -1,6 +1,12 @@
 
 // This code is for the TMP36 temperature sensor for arduino
 
+enum class TempSensorStatus
+{
+    STATUS_OK,
+    STATUS_TOO_HOT
+};
+
 class TempSensor 
 {
     float temp;

@@ -1,15 +1,11 @@
 // Alek Popovic
 // Last Updated: 1/14/2022
 #pragma once
-#include <string>
 
-class ActuatorException : public std::exception {
-protected:
-    std::string message;
-public:
-    explicit ActuatorException(const char* m);
-
-    [[nodiscard]] const char *what() const noexcept override;
+enum class ActuatorStatus
+{
+    STATUS_OK,
+    STATUS_LENGTH_ERROR
 };
 
 class Actuator {
@@ -17,7 +13,7 @@ class Actuator {
 public:
     Actuator(int length = 0);
 
-    int GetLength();
+    [[nodiscard]] int GetLength() const;
 
     void SetLength(int nlength);
 };

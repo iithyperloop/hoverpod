@@ -25,13 +25,13 @@ public:
 
     IMU();
 
-    acceleration_data get_acel_values() const;
+    [[nodiscard]] acceleration_data get_acel_values() const;
 
-    float get_x_acel_value() const;
+    [[nodiscard]] float get_x_acel_value() const;
 
-    float get_y_acel_value() const;
+    [[nodiscard]] float get_y_acel_value() const;
 
-    float get_z_acel_value() const;
+    [[nodiscard]] float get_z_acel_value() const;
 
     void set_acel_values(acceleration_data val);
 

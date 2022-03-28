@@ -1,5 +1,4 @@
 #include <chrono>
-#include "IMU/IMU.hpp"
 #include "Threading/Threading.hpp"
 #include "vn/matrix.h"
 #include "vn/vector.h"

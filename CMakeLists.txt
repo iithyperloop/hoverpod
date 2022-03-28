@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_library(Actuator Actuator/Actuator.cpp Actuator/Actuator.hpp)
-add_library(IMU IMU/IMU.cpp IMU/IMU.hpp)
+add_library(IMU IMU/IMU.cpp IMU/IMU.hpp IMU/DblIntegration.cpp)
 add_library(Motor Motor/Motor.cpp Motor/Motor.hpp)
 add_library(LandingGear LandingGear/LandingGear.cpp LandingGear/LandingGear.hpp)
 add_library(Threading Threading/Threading.cpp Threading/Threading.hpp)

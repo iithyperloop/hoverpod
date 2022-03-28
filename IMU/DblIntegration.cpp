@@ -1,19 +1,15 @@
 #include <iostream>
-#include <stdlib.h>
 #include <cmath>
 
-using namespace std;
-
-float fun(float x, float y) {
+float fun(const float x, const float y) {
     return pow(pow(x, 4) + pow(y, 5), 0.5);
 }
 
 // Function to find the double integral value
-float doubleIntegral(float step_x, float step_y, float lower_x, float upper_x, float lower_y, float upper_y) {
-    int n1, n2;
-    float arr[50][50], arr_2[50], result;
-    n1 = (upper_x - lower_x) / step_x + 1;
-    n2 = (upper_y - lower_y) / step_y + 1;
+float doubleIntegral(const float step_x, const float step_y, const float lower_x, const float upper_x, const float lower_y, const float upper_y) {
+    const float n1 = (upper_x - lower_x) / step_x + 1.f;
+    const float n2 = (upper_y - lower_y) / step_y + 1.f;
+    float arr[50][50], arr_2[50];
     for (int i = 0; i < n1; ++i) {
         for (int j = 0; j < n2; ++j) {
             arr[i][j] = fun(lower_x + i * step_x, lower_y + j * step_y);
@@ -29,9 +25,9 @@ float doubleIntegral(float step_x, float step_y, float lower_x, float upper_x, f
             else
                 arr_2[i] += 4 * arr[i][j];
         }
-        arr_2[i] *= (step_y / 3);
+        arr_2[i] *= step_y / 3;
     }
-    result = 0;
+    float result = 0.f;
     for (int i = 0; i < n1; ++i) {
         if (i == 0 || i == n1 - 1)
             result += arr_2[i];
@@ -40,7 +36,7 @@ float doubleIntegral(float step_x, float step_y, float lower_x, float upper_x, f
         else
             result += 4 * arr_2[i];
     }
-    result *= (step_x / 3);
+    result *= step_x / 3;
     return result;
 }
 
@@ -51,6 +47,6 @@ int main() {
     float upper_x = 2.1; //upper limit of x
     float lower_y = 1.0; //lower limit of y
     float upper_y = 2.1; //upper limit of y
-    cout<<"double integration is : "<<(step_x, step_y, lower_x, upper_x, lower_y, upper_y);
+    std::cout << "double integration is : " << (step_x, step_y, lower_x, upper_x, lower_y, upper_y);
     return 0;
 }

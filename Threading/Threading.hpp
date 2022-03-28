@@ -10,7 +10,7 @@ namespace Hyperloop {
 		std::atomic<T> val;
 		std::thread thread;
 	public:
-		Thread(void (*F)(std::atomic<T> &val), T initial_val) {
+		Thread(void (*F)(std::atomic<T>& val), T initial_val) {
 			val.store(initial_val);
 			thread = std::thread(F, std::ref(val));
 		}
