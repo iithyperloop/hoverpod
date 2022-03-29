@@ -10,7 +10,6 @@ add_library(IMU IMU/IMU.cpp IMU/IMU.hpp IMU/DblIntegration.cpp)
 add_library(Motor Motor/Motor.cpp Motor/Motor.hpp)
 add_library(LandingGear LandingGear/LandingGear.cpp LandingGear/LandingGear.hpp)
 add_library(Threading Threading/Threading.cpp Threading/Threading.hpp)
-add_library(KalmanFilter KalmanFilter/KalmanFilter.cpp KalmanFilter/KalmanFilter.hpp)
 
 add_executable(Hoverpod Main.cpp)
 
