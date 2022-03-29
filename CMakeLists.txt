@@ -20,7 +20,6 @@ target_link_libraries(Hoverpod PRIVATE IMU)
 target_link_libraries(Hoverpod PRIVATE Motor)
 target_link_libraries(Hoverpod PRIVATE LandingGear)
 target_link_libraries(Hoverpod PRIVATE Threading)
-target_link_libraries(Hoverpod PRIVATE KalmanFilter)
 
 set(VNPROG
         vnproglib/src/attitude.cpp
