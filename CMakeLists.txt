@@ -62,5 +62,5 @@ file(GLOB IMGUI_SOURCES
     ${IMGUI_PATH}/backends/*.cpp) 
     
 add_library(ImGui STATIC ${IMGUI_SOURCES})
-target_include_directories("ImGui" PUBLIC ${IMGUI_PATH})
+target_include_directories(ImGui PUBLIC ${IMGUI_PATH})
 target_link_libraries(Hoverpod PUBLIC ImGui)
