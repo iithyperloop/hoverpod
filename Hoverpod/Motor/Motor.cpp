@@ -9,3 +9,11 @@ double Motor::getSpeed() const {
 void Motor::setSpeed(const double val) {
     speed = val > 0 ? val : 0;
 }
+
+void Motor::increaseSpeed(double val) {
+    setSpeed(getSpeed() + val);
+}
+
+void Motor::decreaseSpeed(double val) {
+    setSpeed(getSpeed() - val);
+}
