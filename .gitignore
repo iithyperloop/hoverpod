@@ -6,3 +6,6 @@ cmake-build-debug
 .vs
 out
 CMakeSettings.json
+build
+.DS_STORE
+.gitmodules
