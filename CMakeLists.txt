@@ -6,12 +6,12 @@ set(OpenGL_GL_PREFERENCE "GLVND")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_library(Actuator Hoverpod/Actuator/Actuator.cpp Hoverpod/Actuator/Actuator.hpp)
-add_library(IMU Hoverpod/IMU/IMU.cpp Hoverpod/IMU/IMU.hpp Hoverpod/IMU/DblIntegration.cpp)
-add_library(Motor Hoverpod/Motor/Motor.cpp Hoverpod/Motor/Motor.hpp)
-add_library(LandingGear Hoverpod/LandingGear/LandingGear.cpp Hoverpod/LandingGear/LandingGear.hpp)
-add_library(Threading Hoverpod/Threading/Threading.cpp Hoverpod/Threading/Threading.hpp)
-add_library(GUI Hoverpod/GUI/GUI.cpp Hoverpod/GUI/GUI.hpp)
+add_library(Actuator STATIC Hoverpod/Actuator/Actuator.cpp Hoverpod/Actuator/Actuator.hpp)
+add_library(IMU STATIC Hoverpod/IMU/IMU.cpp Hoverpod/IMU/IMU.hpp Hoverpod/IMU/DblIntegration.cpp)
+add_library(Motor STATIC Hoverpod/Motor/Motor.cpp Hoverpod/Motor/Motor.hpp)
+add_library(LandingGear STATIC Hoverpod/LandingGear/LandingGear.cpp Hoverpod/LandingGear/LandingGear.hpp)
+add_library(Threading STATIC Hoverpod/Threading/Threading.cpp Hoverpod/Threading/Threading.hpp)
+add_library(GUI STATIC Hoverpod/GUI/GUI.cpp Hoverpod/GUI/GUI.hpp)
 
 add_executable(Hoverpod Main.cpp)
 
