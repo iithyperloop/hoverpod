@@ -8,3 +8,4 @@ out
 CMakeSettings.json
 build
 .DS_STORE
+.gitmodules
