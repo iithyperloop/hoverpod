@@ -26,10 +26,10 @@ target_link_libraries(Hoverpod PRIVATE GUI)
 
 set(VNPROG_PATH "libs/vnproglib")
     
-file(GLOB IMGUI_SOURCES ${VNPROG_PATH}/src/*.cpp) 
+file(GLOB VNPROG_SOURCES ${VNPROG_PATH}/src/*.cpp) 
     
-add_library(libvncxx STATIC ${IMGUI_SOURCES})
-target_include_directories(libvncxx PUBLIC ${IMGUI_PATH}/include)
+add_library(libvncxx STATIC ${VNPROG_SOURCES})
+target_include_directories(libvncxx PUBLIC ${VNPROG_PATH}/include)
 
 include_directories(
     libs/vnproglib/include)
@@ -61,6 +61,6 @@ file(GLOB IMGUI_SOURCES
     ${IMGUI_PATH}/*.cpp
     ${IMGUI_PATH}/backends/*.cpp) 
     
-add_library("ImGui" STATIC ${IMGUI_SOURCES})
+add_library(ImGui STATIC ${IMGUI_SOURCES})
 target_include_directories("ImGui" PUBLIC ${IMGUI_PATH})
 target_link_libraries(Hoverpod PUBLIC ImGui)
