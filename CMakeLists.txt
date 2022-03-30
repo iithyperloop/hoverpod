@@ -2,14 +2,16 @@ cmake_minimum_required(VERSION 3.10)
 
 project(Hoverpod VERSION 1.0)
 
+set(OpenGL_GL_PREFERENCE "GLVND")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_library(Actuator Actuator/Actuator.cpp Actuator/Actuator.hpp)
-add_library(IMU IMU/IMU.cpp IMU/IMU.hpp IMU/DblIntegration.cpp)
-add_library(Motor Motor/Motor.cpp Motor/Motor.hpp)
-add_library(LandingGear LandingGear/LandingGear.cpp LandingGear/LandingGear.hpp)
-add_library(Threading Threading/Threading.cpp Threading/Threading.hpp)
+add_library(Actuator STATIC Hoverpod/Actuator/Actuator.cpp Hoverpod/Actuator/Actuator.hpp)
+add_library(IMU STATIC Hoverpod/IMU/IMU.cpp Hoverpod/IMU/IMU.hpp Hoverpod/IMU/DblIntegration.cpp)
+add_library(Motor STATIC Hoverpod/Motor/Motor.cpp Hoverpod/Motor/Motor.hpp)
+add_library(LandingGear STATIC Hoverpod/LandingGear/LandingGear.cpp Hoverpod/LandingGear/LandingGear.hpp)
+add_library(Threading STATIC Hoverpod/Threading/Threading.cpp Hoverpod/Threading/Threading.hpp)
+add_library(GUI STATIC Hoverpod/GUI/GUI.cpp Hoverpod/GUI/GUI.hpp)
 
 add_executable(Hoverpod Main.cpp)
 
@@ -20,68 +22,43 @@ target_link_libraries(Hoverpod PRIVATE IMU)
 target_link_libraries(Hoverpod PRIVATE Motor)
 target_link_libraries(Hoverpod PRIVATE LandingGear)
 target_link_libraries(Hoverpod PRIVATE Threading)
+target_link_libraries(Hoverpod PRIVATE GUI)
 
-set(VNPROG
-        vnproglib/src/attitude.cpp
-        vnproglib/src/compositedata.cpp
-        vnproglib/src/conversions.cpp
-        vnproglib/src/criticalsection.cpp
-        vnproglib/src/dllvalidator.cpp
-        vnproglib/src/error_detection.cpp
-        vnproglib/src/event.cpp
-        vnproglib/src/ezasyncdata.cpp
-        vnproglib/src/memoryport.cpp
-        vnproglib/src/packet.cpp
-        vnproglib/src/packetfinder.cpp
-        vnproglib/src/port.cpp
-        vnproglib/src/position.cpp
-        vnproglib/src/rtcmlistener.cpp
-        vnproglib/src/rtcmmessage.cpp
-        vnproglib/src/searcher.cpp
-        vnproglib/src/sensors.cpp
-        vnproglib/src/serialport.cpp
-        vnproglib/src/thread.cpp
-        vnproglib/src/types.cpp
-        vnproglib/src/util.cpp
-        vnproglib/src/utilities.cpp
-        vnproglib/src/vntime.cpp
-        vnproglib/include/vn/exceptions.h
-        vnproglib/include/vn/matrix.h
-        vnproglib/include/vn/attitude.h
-        vnproglib/include/vn/boostpython.h
-        vnproglib/include/vn/dllvalidator.h
-        vnproglib/include/vn/signal.h
-        vnproglib/include/vn/error_detection.h
-        vnproglib/include/vn/position.h
-        vnproglib/include/vn/registers.h
-        vnproglib/include/vn/rtcmlistener.h
-        vnproglib/include/vn/rtcmmessage.h
-        vnproglib/include/vn/utilities.h
-        vnproglib/include/vn/memoryport.h
-        vnproglib/include/vn/nocopy.h
-        vnproglib/include/vn/compositedata.h
-        vnproglib/include/vn/criticalsection.h
-        vnproglib/include/vn/compiler.h
-        vnproglib/include/vn/sensors.h
-        vnproglib/include/vn/searcher.h
-        vnproglib/include/vn/event.h
-        vnproglib/include/vn/ezasyncdata.h
-        vnproglib/include/vn/serialport.h
-        vnproglib/include/vn/export.h
-        vnproglib/include/vn/vector.h
-        vnproglib/include/vn/vntime.h
-        vnproglib/include/vn/packetfinder.h
-        vnproglib/include/vn/conversions.h
-        vnproglib/include/vn/types.h
-        vnproglib/include/vn/int.h
-        vnproglib/include/vn/thread.h
-        vnproglib/include/vn/mock.h
-        vnproglib/include/vn/port.h
-        vnproglib/include/vn/util.h
-        vnproglib/include/vn/consts.h
-        vnproglib/include/vn/packet.h)
+set(VNPROG_PATH "libs/vnproglib")
+    
+file(GLOB VNPROG_SOURCES ${VNPROG_PATH}/src/*.cpp) 
+    
+add_library(libvncxx STATIC ${VNPROG_SOURCES})
+target_include_directories(libvncxx PUBLIC ${VNPROG_PATH}/include)
 
 include_directories(
-    vnproglib/include)
+    libs/vnproglib/include)
 
-add_library(libvncxx ${VNPROG})
+target_link_libraries(Hoverpod PUBLIC libvncxx)
+
+include_directories(
+    libs/glfw/include)
+
+if (UNIX)
+    SET(GCC_COVERAGE_COMPILE_FLAGS "-pthread")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
+endif (UNIX)
+
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(libs/glfw)
+
+target_link_libraries(Hoverpod PUBLIC glfw)
+
+find_package(OpenGL REQUIRED)
+target_link_libraries(Hoverpod PUBLIC OpenGL::GL)
+
+set(IMGUI_PATH "libs/imgui")
+    
+file(GLOB_RECURSE IMGUI_SOURCES ${IMGUI_PATH}/*.cpp) 
+    
+add_library(ImGui STATIC ${IMGUI_SOURCES})
+target_include_directories(ImGui PUBLIC ${IMGUI_PATH})
+target_link_libraries(Hoverpod PUBLIC ImGui)
