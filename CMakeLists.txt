@@ -57,9 +57,7 @@ target_link_libraries(Hoverpod PUBLIC OpenGL::GL)
 
 set(IMGUI_PATH "libs/imgui")
     
-file(GLOB IMGUI_SOURCES
-    ${IMGUI_PATH}/*.cpp
-    ${IMGUI_PATH}/backends/*.cpp) 
+file(GLOB_RECURSE IMGUI_SOURCES ${IMGUI_PATH}/*.cpp) 
     
 add_library(ImGui STATIC ${IMGUI_SOURCES})
 target_include_directories(ImGui PUBLIC ${IMGUI_PATH})
