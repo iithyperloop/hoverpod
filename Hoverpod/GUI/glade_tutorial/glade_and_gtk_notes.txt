@@ -1,7 +1,0 @@
-Glade is a graphical interface-design environment that utilizes a Linux-based libraries to compile .glade files into executable C files.
-
-In order to compile, you must have gcc and gtk3.0. To compile the tutorial files, execute `gcc -o tut tut.c $(pkg-config --cflags --libs gtk+-3.0 gmodule-2.0)`.
-
-For those looking to write their own glade files, a GtkWindow is necessary to contain every other Gtk Object. This window should be given an ID for the c code to reference in `window = GTK_WIDGET( gtk_builder_get_object( builder, <window ID> ) );` Follow the given example for other setup assistance.
-
-For those new to developing in a Linux environment, download emacs through the command line for less headache and a more human-readable coding environment.
