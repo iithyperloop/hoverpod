@@ -28,7 +28,7 @@ void vn_tests() {
 }
 
 int main() {
-	vn_tests();
+	//vn_tests();
 	init_gui();
 	/*Hyperloop::Thread<double> KalmanFilter(kalman_filter, 0);
 	KalmanFilter.run_synchronously();

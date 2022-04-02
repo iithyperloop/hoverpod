@@ -45,3 +45,9 @@ target_link_libraries(Hoverpod PUBLIC glfw)
 set(OpenGL_GL_PREFERENCE "GLVND")
 find_package(OpenGL REQUIRED)
 target_link_libraries(Hoverpod PUBLIC OpenGL::GL)
+
+# Copy resource files to output directory
+configure_file(resources/logo.png ${CMAKE_CURRENT_BINARY_DIR}/resources/logo.png COPYONLY)
+configure_file(resources/battery.png ${CMAKE_CURRENT_BINARY_DIR}/resources/battery.png COPYONLY)
+configure_file(resources/arrow.png ${CMAKE_CURRENT_BINARY_DIR}/resources/arrow.png COPYONLY)
+configure_file(resources/OpenSans-Medium.ttf ${CMAKE_CURRENT_BINARY_DIR}/resources/OpenSans-Medium.ttf COPYONLY)
