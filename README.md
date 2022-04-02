@@ -4,3 +4,6 @@
 <br></br>
 # hoverpod
 This is for all the code as well as the design documentation for the hover pod project.
+
+# Wiki
+Check out the [Wiki](https://github.com/hyperloopiit/hoverpod/wiki) for build instructions if your machine isn't Unix arm64
