@@ -199,7 +199,7 @@ int init_gui()
 
         	static int battery_percent = 100;
             static float accel_percent = 100;
-            sprintf_s(battery_str.data(), 20, "%d%%", battery_percent);
+            sprintf(battery_str.data(), "%d%%", battery_percent);
             if (battery_percent >= 75)
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(0, 255, 0)));
             else if (battery_percent <= 75 && battery_percent >= 50)
