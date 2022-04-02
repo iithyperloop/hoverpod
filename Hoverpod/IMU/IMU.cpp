@@ -1,49 +1,47 @@
 #include "IMU.hpp"
 
-IMU::IMU(const acceleration_data start) : acel_values(start) {}
 
-IMU::IMU() : acel_values({}) {
-    read_sensor_data();
+IMU::IMU() : IMU_data({}) {
+#ifdef _WIN32
+	sensor.connect("/dev/ttyS1", baudrate);
+#elif __linux__
+	sensor.connect("/dev/ttyUSB0", baudrate);
+#elif __APPLE__
+	sensor.connect("/dev/tty.usbserial-FT3JX4GV", baudrate);
+#endif
+	update();
 }
 
-std::vector<float> IMU::read_sensor_data() {
-    // read data from sensor.. how!?
-    acel_values = {
-        .x = 0,
-        .y = 0,
-        .z = 0
-    };
-    return {};
+IMU::~IMU()
+{
+	sensor.disconnect();
 }
 
-IMU::acceleration_data IMU::get_acel_values() const { 
-    return acel_values; 
+void IMU::update()
+{
+	IMU_data = sensor.readYawPitchRollMagneticAccelerationAndAngularRates();
 }
 
-float IMU::get_x_acel_value() const {
-    return get_acel_values().x;
+vn::math::vec3f IMU::get_acel_values()
+{
+	update();
+	return IMU_data.accel;
 }
 
-float IMU::get_y_acel_value() const {
-    return get_acel_values().y;
+vn::math::vec3f IMU::get_gyro_values()
+{
+	update();
+	return IMU_data.gyro;
 }
 
-float IMU::get_z_acel_value() const {
-    return get_acel_values().z;
+vn::math::vec3f IMU::get_mag_values()
+{
+	update();
+	return IMU_data.mag;
 }
 
-void IMU::set_acel_values(const acceleration_data val) {
-    acel_values = val;
-}
-
-void IMU::set_x_acel_value(const float val) {
-    acel_values.x = val;
-}
-
-void IMU::set_y_acel_value(const float val) {
-    acel_values.y = val;
-}
-
-void IMU::set_z_acel_value(const float val) {
-    acel_values.y = val;
+vn::math::vec3f IMU::get_yaw_pitch_roll_values()
+{
+	update();
+	return IMU_data.yawPitchRoll;
 }
