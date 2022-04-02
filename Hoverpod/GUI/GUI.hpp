@@ -75,19 +75,17 @@ void ImageRotatedRel(ImTextureID tex_id, ImVec2 center, ImVec2 size, float angle
 
     center.x += ImGui::GetWindowPos().x;
     center.y += ImGui::GetWindowPos().y;
-    center.x += ImGui::GetWindowPos().x;
-    center.y += ImGui::GetWindowPos().y;
 
-    float cos_a = cosf(angle);
-    float sin_a = sinf(angle);
-    ImVec2 pos[4] =
+    const float cos_a = cosf(angle);
+    const float sin_a = sinf(angle);
+    const ImVec2 pos[4] =
     {
         center + ImRotate(ImVec2(-size.x * 0.5f, -size.y * 0.5f), cos_a, sin_a),
         center + ImRotate(ImVec2(+size.x * 0.5f, -size.y * 0.5f), cos_a, sin_a),
         center + ImRotate(ImVec2(+size.x * 0.5f, +size.y * 0.5f), cos_a, sin_a),
         center + ImRotate(ImVec2(-size.x * 0.5f, +size.y * 0.5f), cos_a, sin_a)
     };
-    ImVec2 uvs[4] =
+    const ImVec2 uvs[4] =
     {
         ImVec2(0.0f, 0.0f),
         ImVec2(1.0f, 0.0f),
@@ -221,10 +219,10 @@ int init_gui()
             ImGui::Text("Battery Voltage: %.1fV", 5.1);
             AddUnderLine(ImColor(255, 255, 255));
             if (accel_percent > 0) {
-                ImageRotatedRel(reinterpret_cast<ImTextureID>(arrow_texture), ImVec2(200, 10), ImVec2(75, accel_percent * 3), 0);
+                ImageRotatedRel(reinterpret_cast<ImTextureID>(arrow_texture), ImVec2(600, 200), ImVec2(75, accel_percent * 3), 0);
             } else
             {
-                ImageRotatedRel(reinterpret_cast<ImTextureID>(arrow_texture), ImVec2(200, 10), ImVec2(75, accel_percent * 3), 2 * 3.14);
+                ImageRotatedRel(reinterpret_cast<ImTextureID>(arrow_texture), ImVec2(600, 200), ImVec2(75, accel_percent * 3), 2 * 3.14);
             }
             ImGui::NewLine();
             ImGui::Text("Battery Temperature: %.1fC", 21.5);
