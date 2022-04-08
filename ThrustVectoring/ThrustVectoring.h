@@ -3,10 +3,13 @@
 
 class ThrustVectoring{
 
+    private:
+        double components[3];
+
     public:
         //ThrustVectoring Default methods
         ThrustVectoring();
-        ThrustVectoring(double reading[]);
+        ThrustVectoring(double reading[3]);
 
         //components array setter
         void setComponents(double x, double y, double z);
