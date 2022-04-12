@@ -49,8 +49,10 @@ public:
 	// BMS.GetValue(OBJ2Pid::STATE_OF_CHARGE)
 
 	uint16_t GetValue(OBJ2Pid pid) {
-		serial.send(serialize(pid));
-		return getSOCVal(serial.recv());
+		//serial.send(serialize(pid));
+		//return getSOCVal(serial.recv());
+		/// TODO: replace or something idk im ty
+		return 0;
 	}
 };
 
