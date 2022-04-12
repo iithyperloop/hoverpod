@@ -4,7 +4,7 @@
 enum class OBJ2Pid : uint16_t {
 	STATUS = 0xF004, // relay status
 	SIGNED_PACK_CURRENT = 0xF00C, // amps
-	UNSIGNED_PACK_CURRENT = 0xF0015, // amps
+	UNSIGNED_PACK_CURRENT = 0xF015, // amps
 	VOLTAGE = 0xF00D, // volts
 	OPEN_VOLTAGE = 0xF00E, // volts
 	STATE_OF_CHARGE = 0xF00F, // % charge
@@ -20,8 +20,8 @@ class BMS {
 
 	template <typename T>
 	void cp_and_iter(int *off, uint8_t *arr, T val) {
-		memcpy(&arr[off], &val, sizeof(val)); // this is copying var to arr
-		off += sizeof(T);
+		memcpy(&arr[*off], &val, sizeof(val)); // this is copying var to arr
+		*off += sizeof(T);
 	}
 
 public:
