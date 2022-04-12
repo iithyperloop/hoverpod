@@ -1,6 +1,5 @@
 #include <cstdint>
-#include <vector>
-#include <Windows.h>
+#include <string.h>
 
 enum class OBJ2Pid : uint16_t {
 	STATUS = 0xF004, // relay status
