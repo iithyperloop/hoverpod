@@ -23,6 +23,7 @@ add_executable(Hoverpod Main.cpp
                         Hoverpod/LandingGear/LandingGear.cpp
                         Hoverpod/Threading/Threading.cpp
                         Hoverpod/GUI/GUI.cpp
+                        Hoverpod/BatteryPack/BatteryPack.cpp
                         ${VNPROG_SOURCES}
                         ${IMGUI_SOURCES})
 set_target_properties(Hoverpod PROPERTIES LINKER_LANGUAGE CXX)
