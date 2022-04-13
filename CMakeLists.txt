@@ -16,14 +16,9 @@ file(GLOB_RECURSE IMGUI_SOURCES ${IMGUI_PATH}/*.cpp)
 include_directories(${IMGUI_PATH})
 
 # Add hoverpod cpp files to be compiled and set language to c++
+file(GLOB_RECURSE HOVERPOD_SOURCES Hoverpod/*.cpp)
 add_executable(Hoverpod Main.cpp
-                        Hoverpod/Actuator/Actuator.cpp
-                        Hoverpod/IMU/IMU.cpp
-                        Hoverpod/Motor/Motor.cpp
-                        Hoverpod/LandingGear/LandingGear.cpp
-                        Hoverpod/Threading/Threading.cpp
-                        Hoverpod/GUI/GUI.cpp
-                        Hoverpod/BatteryPack/BatteryPack.cpp
+                        ${HOVERPOD_SOURCES}
                         ${VNPROG_SOURCES}
                         ${IMGUI_SOURCES})
 set_target_properties(Hoverpod PROPERTIES LINKER_LANGUAGE CXX)
