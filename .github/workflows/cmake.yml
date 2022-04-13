@@ -32,3 +32,13 @@ jobs:
       run: |
         cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         cmake --build ${{github.workspace}}/build
+
+    - name: Create Artifact
+      run: |
+        cp -R ${{github.workspace}}/build release
+
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ format('{0}-x64-{1}', matrix.os, matrix.type) }}
+        path: release
