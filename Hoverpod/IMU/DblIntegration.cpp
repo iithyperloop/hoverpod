@@ -39,14 +39,3 @@ float doubleIntegral(const float step_x, const float step_y, const float lower_x
     result *= step_x / 3;
     return result;
 }
-
-int main() {
-    float step_x = 1.2; //steps for x
-    float step_y = 0.54; //steps for y
-    float lower_x = 1.3; //lower limit of x
-    float upper_x = 2.1; //upper limit of x
-    float lower_y = 1.0; //lower limit of y
-    float upper_y = 2.1; //upper limit of y
-    std::cout << "double integration is : " << (step_x, step_y, lower_x, upper_x, lower_y, upper_y);
-    return 0;
-}
