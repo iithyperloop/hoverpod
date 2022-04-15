@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <string.h>
+#include "BatteryPack.hpp"
 
 enum class OBJ2Pid : uint16_t {
 	STATUS = 0xF004, // relay status
@@ -18,24 +19,7 @@ class BMS {
 	int8_t mod = 0x22;
 	uint32_t padding = 0x0;
 
-	template <typename T>
-	void cp_and_iter(int *off, uint8_t *arr, T val) {
-		memcpy(&arr[*off], &val, sizeof(val)); // this is copying var to arr
-		*off += sizeof(T);
-	}
-
 public:
-	uint8_t *serialize(OBJ2Pid pid) {
-		uint8_t arr[11] = {};
-		int off = 0;
-		cp_and_iter(&off, arr, id);
-		cp_and_iter(&off, arr, can_len);
-		cp_and_iter(&off, arr, obj2_len);
-		cp_and_iter(&off, arr, mod);
-		cp_and_iter(&off, arr, static_cast<uint16_t>(pid));
-		cp_and_iter(&off, arr, padding);
-		return arr;
-	}
 
 	uint16_t getSOCVal(uint8_t arr[12]) {
 		// 7th byte in array is soc array (2 bytes long, bytes 7 and 8)
@@ -56,3 +40,14 @@ public:
 	}
 };
 
+uint8_t* BatteryPack::serialize(OBJ2Pid pid) {
+	uint8_t arr[11] = {};
+	int off = 0;
+	cp_and_iter(&off, arr, id);
+	cp_and_iter(&off, arr, can_len);
+	cp_and_iter(&off, arr, obj2_len);
+	cp_and_iter(&off, arr, mod);
+	cp_and_iter(&off, arr, static_cast<uint16_t>(pid));
+	cp_and_iter(&off, arr, padding);
+	return arr;
+}
