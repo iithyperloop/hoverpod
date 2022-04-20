@@ -3,7 +3,7 @@
 
 IMU::IMU() : IMU_data({}) {
 #ifdef _WIN32
-	sensor.connect("/dev/ttyS1", baudrate);
+	sensor.connect("COM6", baudrate);
 #elif __linux__
 	sensor.connect("/dev/ttyUSB0", baudrate);
 #elif __APPLE__
