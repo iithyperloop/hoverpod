@@ -10,6 +10,11 @@ set(VNPROG_PATH libs/vnproglib)
 file(GLOB VNPROG_SOURCES ${VNPROG_PATH}/src/*.cpp) 
 include_directories(${VNPROG_PATH}/include)
 
+# Find serial source files
+set(SERIAL_PATH libs/serial)
+file(GLOB_RECURSE SERIAL_SOURCES ${SERIAL_PATH}/*.cc)
+include_directories(${SERIAL_PATH}/include)
+
 # Find ImGui source files
 set(IMGUI_PATH libs/imgui)
 file(GLOB_RECURSE IMGUI_SOURCES ${IMGUI_PATH}/*.cpp)
@@ -18,9 +23,11 @@ include_directories(${IMGUI_PATH})
 # Add hoverpod cpp files to be compiled and set language to c++
 file(GLOB_RECURSE HOVERPOD_SOURCES Hoverpod/*.cpp)
 add_executable(Hoverpod Main.cpp
-                        ${HOVERPOD_SOURCES}
                         ${VNPROG_SOURCES}
-                        ${IMGUI_SOURCES})
+                        ${IMGUI_SOURCES}
+                        ${SERIAL_SOURCES}
+                        ${HOVERPOD_SOURCES}
+                        )
 set_target_properties(Hoverpod PROPERTIES LINKER_LANGUAGE CXX)
 
 # Needed for std::thread on unix

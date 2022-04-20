@@ -1,9 +1,8 @@
 #include "Hoverpod/GUI/GUI.hpp"
-#include <Windows.h>
-#include "Hoverpod/IMU/IMU.hpp"
+#include "Hoverpod/BatteryPack/BatteryPack.hpp"
 
 int main() {
-	IMU imu;
-	imu.do_imu();
+	  BatteryPack bp;
+    bp.test();
     return 1;
 }
