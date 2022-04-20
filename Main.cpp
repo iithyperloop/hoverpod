@@ -1,6 +1,8 @@
 #include "Hoverpod/GUI/GUI.hpp"
+#include "Hoverpod/BatteryPack/BatteryPack.hpp"
 
 int main() {
-	init_gui();
+	BatteryPack bp;
+    bp.test();
     return 1;
 }
