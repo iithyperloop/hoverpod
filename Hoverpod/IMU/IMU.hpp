@@ -82,6 +82,7 @@ public:
 				}
 			}
 			//curr_acc = multiply invert matrix to angleVec
+			cout << rotationMatrix.0(0,0);
 			curr_acc += rotationMatrix.0 * angleVec;
 			curr_acc += rotationMatrix.1 * angleVec;
 			curr_acc += rotationMatrix.2 * angleVec;
@@ -119,4 +120,4 @@ public:
 				printf("Velocity: (%f %f %f)\n", velocity.x, velocity.y, velocity.z);
 			}
 		}
-}; 
+};
