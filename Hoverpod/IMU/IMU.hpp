@@ -81,9 +81,9 @@ public:
 					for(j = 0; j < 3; j++) {
 					mat[i][j] = (float)(((mat[(j+1)%3][(i+1)%3] * mat[(j+2)%3][(i+2)%3]) - (mat[(j+1)%3][(i+2)%3] * mat[(j+2)%3][(i+1)%3])) / determinant);
 				}
-				rotationMatrix(static_cast<float>mat[0][0], static_cast<float>mat[0][1], static_cast<float>mat[0][2],
-											 static_cast<float>mat[1][0], static_cast<float>mat[1][1], static_cast<float>mat[1][2],
-										   static_cast<float>mat[2][0], static_cast<float>mat[2][1], static_cast<float>mat[2][2]);
+				rotationMatrix(static_cast<float>(mat[0][0]), static_cast<float>(mat[0][1]), static_cast<float>(mat[0][2]),
+											 static_cast<float>(mat[1][0]), static_cast<float>(mat[1][1]), static_cast<float>(mat[1][2]),
+										   static_cast<float>(mat[2][0]), static_cast<float>(mat[2][1]), static_cast<float>(mat[2][2]));
 			}
 			return curr_acc;
 		}
