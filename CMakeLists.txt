@@ -20,12 +20,20 @@ set(IMGUI_PATH libs/imgui)
 file(GLOB_RECURSE IMGUI_SOURCES ${IMGUI_PATH}/*.cpp)
 include_directories(${IMGUI_PATH})
 
+if(UNIX AND NOT APPLE)
+    # Find lcdi2c source files
+    set(LCDI2C_PATH libs/lcdi2c)
+    file(GLOB_RECURSE LCDI2C_SOURCES ${LCDI2C_PATH}/*.cpp)
+    include_directories(${LCDI2C_PATH})
+endif()
+
 # Add hoverpod cpp files to be compiled and set language to c++
 file(GLOB_RECURSE HOVERPOD_SOURCES Hoverpod/*.cpp)
 add_executable(Hoverpod Main.cpp
                         ${VNPROG_SOURCES}
                         ${IMGUI_SOURCES}
                         ${SERIAL_SOURCES}
+                        ${LCDI2C_SOURCES}
                         ${HOVERPOD_SOURCES}
                         )
 set_target_properties(Hoverpod PROPERTIES LINKER_LANGUAGE CXX)
