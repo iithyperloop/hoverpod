@@ -41,7 +41,7 @@ public:
 		static vec3f sumVelocity(0.0f, 0.0f, 0.0f);
 
 		for (;;) {
-			this_thread::sleep_for(chrono::milliseconds(2.5));
+			this_thread::sleep_for(chrono::milliseconds(3));
 
 			/*ROTATION MATRIX*/
 			vec3f ypr = get_yaw_pitch_roll_values();
