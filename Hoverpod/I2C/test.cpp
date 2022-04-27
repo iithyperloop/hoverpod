@@ -28,7 +28,7 @@
 
 //using namespace pmvankerNano;
 
-int main() {
+/*int main() {
 
   #ifdef JOYSTICK
   cout << "in Joystick controller" << endl;
@@ -43,5 +43,5 @@ int main() {
   #endif
   
   return 0;
-}
+}*/
 #endif
