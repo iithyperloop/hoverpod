@@ -84,13 +84,15 @@ public:
 	}
 
 	float integrate(vec3f prev_acc, vec3f curr_acc, float timestep) {
-
-		vec3f velocity = timestep * ((curr_acc + prev_acc)/2.0);
+		vec3f velocity;
+		velocity.x = timestep * ((curr_acc.x + prev_acc.x)/2.0);
+		velocity.y = timestep * ((curr_acc.y + prev_acc.y)/2.0);
+		velocity.z = timestep * ((curr_acc.z + prev_acc.z)/2.0);
 
 		return velocity;
 	}
 
-	vec3f normalize(mat3f rotationMatrix, vec curr_acc) {
+	vec3f normalize(mat3f rotationMatrix, vec3f curr_acc) {
 		vec3f angleVec(0.0f, 0.0f, 1.0f); //[0, 0, 1]
 		//invert matrix
 
