@@ -81,14 +81,6 @@ public:
 					rotationMatrix(i)(j) = ((mat[(j+1)%3][(i+1)%3] * mat[(j+2)%3][(i+2)%3]) - (mat[(j+1)%3][(i+2)%3] * mat[(j+2)%3][(i+1)%3])) / determinant;
 				}
 			}
-			//curr_acc = multiply invert matrix to angleVec
-			for (int i = 0; i < 3; i++) {
-				(rotationMatrix.0).i * angleVec.i;
-			}
-			curr_acc += rotationMatrix.0 * angleVec;
-			curr_acc += rotationMatrix.1 * angleVec;
-			curr_acc += rotationMatrix.2 * angleVec;
-
 			return curr_acc;
 		}
 		return curr_acc;
