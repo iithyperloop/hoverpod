@@ -8,6 +8,7 @@
  *  Description : Blink LED connected to Pin 40
 ============================================================================*/
 
+#ifdef __linux__
 #include <iostream>
 #include <unistd.h>
 
@@ -65,3 +66,4 @@ int main() {
 
 	return 0;
 }
+#ifdef __linux__
