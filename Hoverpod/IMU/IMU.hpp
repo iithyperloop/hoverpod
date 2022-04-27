@@ -82,7 +82,9 @@ public:
 				}
 			}
 			//curr_acc = multiply invert matrix to angleVec
-			cout << rotationMatrix.0(0,0);
+			for (int i = 0; i < 3; i++) {
+				(rotationMatrix.0).i * angleVec.i;
+			}
 			curr_acc += rotationMatrix.0 * angleVec;
 			curr_acc += rotationMatrix.1 * angleVec;
 			curr_acc += rotationMatrix.2 * angleVec;
