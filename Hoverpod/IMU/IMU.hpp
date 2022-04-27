@@ -82,9 +82,9 @@ public:
 				}
 			}
 			//curr_acc = multiply invert matrix to angleVec
-			curr_acc.x = rotationMatrix.col0 * angleVec;
-			curr_acc.y = rotationMatrix.col1 * angleVec;
-			curr_acc.z = rotationMatrix.col2 * angleVec;
+			curr_acc.x = rotationMatrix.0 * angleVec;
+			curr_acc.y = rotationMatrix.1 * angleVec;
+			curr_acc.z = rotationMatrix.2 * angleVec;
 
 			return curr_acc;
 		}
@@ -99,7 +99,7 @@ public:
 			static vec3f sumVelocity(0.0f, 0.0f, 0.0f);
 
 			for (;;) {
-				this_thread::sleep_for(chrono::milliseconds(2.5));
+				this_thread::sleep_for(chrono::milliseconds(3));
 
 				/*ROTATION MATRIX*/
 				vec3f ypr = get_yaw_pitch_roll_values();
