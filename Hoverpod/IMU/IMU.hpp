@@ -31,7 +31,7 @@ public:
 
 
 	mat3f rotMatrix(vec3f yawPitchRoll);
-	float integrate(vec3f prev_acc, vec3f curr_acc, float timestep);
+	vec3f integrate(vec3f prev_acc, vec3f curr_acc, float timestep);
 	vec3f normalize(mat3f rotationMatrix, vec curr_acc);
 	void do_imu() {
 
@@ -54,6 +54,7 @@ public:
 			//sumVelocity += integrate()
 			sumVelocity += integrate(prev_accel, curr_accel, 0.0025); //time value undecided
 			//prev acceleration = current acceleration
+			cout << "instantenous velocity: " << sumVelocity << endl;
 			prev_accel = curr_accel;
 
 
@@ -83,7 +84,7 @@ public:
 		return matrix; //returns rotation matrix
 	}
 
-	float integrate(vec3f prev_acc, vec3f curr_acc, float timestep) {
+	vec3f integrate(vec3f prev_acc, vec3f curr_acc, float timestep) {
 		vec3f velocity;
 		velocity.x = timestep * ((curr_acc.x + prev_acc.x)/2.0);
 		velocity.y = timestep * ((curr_acc.y + prev_acc.y)/2.0);
@@ -102,3 +103,4 @@ public:
 	}
 
 };
+
