@@ -85,9 +85,11 @@ public:
 			curr_acc.x = rotationMatrix.col0 * angleVec;
 			curr_acc.y = rotationMatrix.col1 * angleVec;
 			curr_acc.z = rotationMatrix.col2 * angleVec;
-			
+
 			return curr_acc;
 		}
+		return curr_acc;
+	}
 
 		void do_imu() {
 
