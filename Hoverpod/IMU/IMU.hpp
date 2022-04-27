@@ -82,9 +82,9 @@ public:
 				}
 			}
 			//curr_acc = multiply invert matrix to angleVec
-			curr_acc.x = rotationMatrix.0 * angleVec;
-			curr_acc.y = rotationMatrix.1 * angleVec;
-			curr_acc.z = rotationMatrix.2 * angleVec;
+			curr_acc += rotationMatrix.0 * angleVec;
+			curr_acc += rotationMatrix.1 * angleVec;
+			curr_acc += rotationMatrix.2 * angleVec;
 
 			return curr_acc;
 		}
