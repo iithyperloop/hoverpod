@@ -26,11 +26,22 @@
 #include "IMU.h"
 #endif
 
-using namespace pmvankerNano;
+//using namespace pmvankerNano;
 
 int main() {
 
+  #ifdef JOYSTICK
+  cout << "in Joystick controller" << endl;
+  #endif
 
+  #ifdef GUI
+  cout << "in GUI controller" << endl;  #endif
+  #endif
+    
+  #ifdef IMU
+  cout << "in Joystick controller" << endl;
+  #endif
+  
   return 0;
 }
 #endif
