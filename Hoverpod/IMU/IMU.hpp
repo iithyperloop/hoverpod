@@ -70,10 +70,10 @@ public:
 	         mat[i][j] = rotationMatrix(i)(j);
 				 }
 			 }
-			float determinant = 0.0;
+			int determinant = 0;
 			//check if it is invertible
 			for(i = 0; i < 3; i++) {
-				determinant = determinant + (float)(mat[0][i] * (mat[1][(i+1)%3] * mat[2][(i+2)%3] - mat[1][(i+2)%3] * mat[2][(i+1)%3]));
+				determinant = determinant + (mat[0][i] * (mat[1][(i+1)%3] * mat[2][(i+2)%3] - mat[1][(i+2)%3] * mat[2][(i+1)%3]));
 			}
 			if (determinant > 0.0) {
 				for(i = 0; i < 3; i++){
