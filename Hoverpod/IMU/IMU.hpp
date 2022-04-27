@@ -70,15 +70,15 @@ public:
 	         mat[i][j] = rotationMatrix(i)(j);
 				 }
 			 }
-			float determinant = 0;
+			float determinant = 0.0;
 			//check if it is invertible
 			for(i = 0; i < 3; i++) {
-				determinant = determinant + (mat[0][i] * (mat[1][(i+1)%3] * mat[2][(i+2)%3] - mat[1][(i+2)%3] * mat[2][(i+1)%3]));
+				determinant = determinant + (float)(mat[0][i] * (mat[1][(i+1)%3] * mat[2][(i+2)%3] - mat[1][(i+2)%3] * mat[2][(i+1)%3]));
 			}
-			if (determinant > 0) {
+			if (determinant > 0.0) {
 				for(i = 0; i < 3; i++){
 					for(j = 0; j < 3; j++) {
-					rotationMatrix(i)(j) = ((mat[(j+1)%3][(i+1)%3] * mat[(j+2)%3][(i+2)%3]) - (mat[(j+1)%3][(i+2)%3] * mat[(j+2)%3][(i+1)%3])) / determinant;
+					rotationMatrix(i)(j) = (float)(((mat[(j+1)%3][(i+1)%3] * mat[(j+2)%3][(i+2)%3]) - (mat[(j+1)%3][(i+2)%3] * mat[(j+2)%3][(i+1)%3])) / determinant);
 				}
 			}
 			return curr_acc;
