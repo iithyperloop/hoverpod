@@ -10,6 +10,8 @@
 #ifndef I2C_H_
 #define I2C_H_
 
+#ifdef __linux__
+
 #include"bus.h"
 
 #define NANO_I2C_0 "/dev/i2c-0"
@@ -42,3 +44,4 @@ public:
 
 
 #endif /* I2C_H_ */
+#endif
