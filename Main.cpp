@@ -1,8 +1,15 @@
 #include "Hoverpod/GUI/GUI.hpp"
-#include "Hoverpod/BatteryPack/BatteryPack.hpp"
+#include "Hoverpod/IMU/IMU.hpp"
 
 int main() {
-	BatteryPack bp;
-    bp.test();
+    std::thread t([ ] {
+        init_gui();
+    });
+    t.detach();
+
+    IMU imu;
+    while (true) {
+        imu.do_imu();
+    }
     return 1;
 }
