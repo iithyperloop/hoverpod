@@ -7,7 +7,7 @@
  *  			  of this license document, but changing it is not allowed.
  *  Description :
 ============================================================================*/
-
+#ifdef __linux__
 #include"i2c.h"
 #include<iostream>
 #include<sstream>
@@ -156,3 +156,4 @@ I2CDevice::~I2CDevice() {
 }
 
 } /* namespace pmvankerNano */
+#endif
