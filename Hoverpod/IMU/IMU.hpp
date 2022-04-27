@@ -119,4 +119,4 @@ public:
 				printf("Velocity: (%f %f %f)\n", velocity.x, velocity.y, velocity.z);
 			}
 		}
-};
+}; 
