@@ -5,6 +5,9 @@
 #include <iostream>
 #include "vn/sensors.h"
 
+using namespace std;
+using namespace vn::math;
+
 class IMU {
     using dat = vn::sensors::YawPitchRollMagneticAccelerationAndAngularRatesRegister;
     vn::sensors::VnSensor sensor;
@@ -18,29 +21,82 @@ public:
 
     void update();
 
-    [[nodiscard]] vn::math::vec3f get_acel_values();
+    [[nodiscard]] vec3f get_acel_values();
 
-    [[nodiscard]] vn::math::vec3f get_gyro_values();
+    [[nodiscard]] vec3f get_gyro_values();
 
-    [[nodiscard]] vn::math::vec3f get_mag_values();
+    [[nodiscard]] vec3f get_mag_values();
 
-    [[nodiscard]] vn::math::vec3f get_yaw_pitch_roll_values();
+    [[nodiscard]] vec3f get_yaw_pitch_roll_values();
 
-	float integrate_DOUBLY(float var2, float var1, float time_step) {
-		return (var2 - var1) / time_step;
-	}
 
+	mat3f rotMatrix(vec3f yawPitchRoll);
+	float integrate(vec3f prev_acc, vec3f curr_acc, float timestep);
+	vec3f normalize(mat3f rotationMatrix, vec curr_acc);
 	void do_imu() {
-		vn::math::vec3f velocity;
-		auto old_accel = get_acel_values();
+
+		//variables
+		vec3f velocity;
+		vec3f prev_accel(0.0f, 0.0f, 0.0f);
+		static vec3f sumVelocity(0.0f, 0.0f, 0.0f);
+
 		for (;;) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(50));
-			auto new_accel = get_acel_values();
-			velocity.x = integrate_DOUBLY(old_accel.x, new_accel.x, 50000);
-			velocity.y = integrate_DOUBLY(old_accel.y, new_accel.y, 50000);
-			velocity.z = integrate_DOUBLY(old_accel.z, new_accel.z, 50000);
-			old_accel = get_acel_values();
+			this_thread::sleep_for(chrono::milliseconds(2.5));
+
+			/*ROTATION MATRIX*/
+			vec3f ypr = get_yaw_pitch_roll_values();
+			mat3f rotationMatrix = rotMatrix(ypr);
+
+			/*INTEGRATION*/
+			//get curr acceleration
+			vec3f curr_accel = get_acel_values();
+			curr_accel = normalize(rotationMatrix, curr_accel);
+			//sumVelocity += integrate()
+			sumVelocity += integrate(prev_accel, curr_accel, 0.0025); //time value undecided
+			//prev acceleration = current acceleration
+			prev_accel = curr_accel;
+
+
 			printf("Velocity: (%f %f %f)\n", velocity.x, velocity.y, velocity.z);
 		}
 	}
+
+	mat3f rotMatrix(vec3f yawPitchRoll) {
+		float yaw = yawPitchRoll[0];
+		float pitch = yawPitchRoll[1];
+		float roll = yawPitchRoll[2];
+
+		float su = sin(roll);
+		float cu = cos(roll);
+
+		float sv = sin(pitch);
+		float cv = cos(pitch);
+
+		float sw = sin(yaw);
+		float cw = cos(yaw);
+
+
+		mat3f matrix( (cv * cw),  (su * sv * cw - cu*sw),  (su * sw + cu * sv * cw),
+									(cv * sw), (cu * cv + su * sv * sw), (cu * sv * sw - su * cw),
+										(-sv),          (su * cv),                (cu * cv) );
+
+		return matrix; //returns rotation matrix
+	}
+
+	float integrate(vec3f prev_acc, vec3f curr_acc, float timestep) {
+
+		vec3f velocity = timestep * ((curr_acc + prev_acc)/2.0);
+
+		return velocity;
+	}
+
+	vec3f normalize(mat3f rotationMatrix, vec curr_acc) {
+		vec3f angleVec(0.0f, 0.0f, 1.0f); //[0, 0, 1]
+		//invert matrix
+
+		//curr_acc = multiply invert matrix to angleVec
+
+		return curr_acc;
+	}
+
 };
