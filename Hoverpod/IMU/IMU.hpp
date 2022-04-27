@@ -30,38 +30,6 @@ public:
     [[nodiscard]] vec3f get_yaw_pitch_roll_values();
 
 
-	mat3f rotMatrix(vec3f yawPitchRoll);
-	vec3f integrate(vec3f prev_acc, vec3f curr_acc, float timestep);
-	vec3f normalize(mat3f rotationMatrix, vec curr_acc);
-	void do_imu() {
-
-		//variables
-		vec3f velocity;
-		vec3f prev_accel(0.0f, 0.0f, 0.0f);
-		static vec3f sumVelocity(0.0f, 0.0f, 0.0f);
-
-		for (;;) {
-			this_thread::sleep_for(chrono::milliseconds(3));
-
-			/*ROTATION MATRIX*/
-			vec3f ypr = get_yaw_pitch_roll_values();
-			mat3f rotationMatrix = rotMatrix(ypr);
-
-			/*INTEGRATION*/
-			//get curr acceleration
-			vec3f curr_accel = get_acel_values();
-			curr_accel = normalize(rotationMatrix, curr_accel);
-			//sumVelocity += integrate()
-			sumVelocity += integrate(prev_accel, curr_accel, 0.0025); //time value undecided
-			//prev acceleration = current acceleration
-			cout << "instantenous velocity: " << sumVelocity << endl;
-			prev_accel = curr_accel;
-
-
-			printf("Velocity: (%f %f %f)\n", velocity.x, velocity.y, velocity.z);
-		}
-	}
-
 	mat3f rotMatrix(vec3f yawPitchRoll) {
 		float yaw = yawPitchRoll[0];
 		float pitch = yawPitchRoll[1];
@@ -102,5 +70,32 @@ public:
 		return curr_acc;
 	}
 
-};
+	void do_imu() {
 
+		//variables
+		vec3f velocity;
+		vec3f prev_accel(0.0f, 0.0f, 0.0f);
+		static vec3f sumVelocity(0.0f, 0.0f, 0.0f);
+
+		for (;;) {
+			this_thread::sleep_for(chrono::milliseconds(2.5));
+
+			/*ROTATION MATRIX*/
+			vec3f ypr = get_yaw_pitch_roll_values();
+			mat3f rotationMatrix = rotMatrix(ypr);
+
+			/*INTEGRATION*/
+			//get curr acceleration
+			vec3f curr_accel = get_acel_values();
+			curr_accel = normalize(rotationMatrix, curr_accel);
+			//sumVelocity += integrate()
+			sumVelocity += integrate(prev_accel, curr_accel, 0.0025); //time value undecided
+			//prev acceleration = current acceleration
+			cout << "instantenous velocity: " << sumVelocity << endl;
+			prev_accel = curr_accel;
+
+
+			printf("Velocity: (%f %f %f)\n", velocity.x, velocity.y, velocity.z);
+		}
+	}
+};
