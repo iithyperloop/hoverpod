@@ -66,4 +66,4 @@ int main() {
 
 	return 0;
 }
-#ifdef __linux__
+#endif
