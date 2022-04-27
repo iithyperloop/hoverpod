@@ -64,7 +64,7 @@ public:
 		vec3f normalize(mat3f rotationMatrix, vec3f curr_acc) {
 			vec3f angleVec(0.0f, 0.0f, 1.0f); //[0, 0, 1]
 			/*INVERT MATRIX*/
-			float mat[3][3]; 
+			float mat[3][3];
 			int i, j;
 			for(i = 0; i < 3; i++) {
 				for(j = 0; j < 3; j++) {
@@ -79,7 +79,8 @@ public:
 			if (determinant > 0.0) {
 				for(i = 0; i < 3; i++){
 					for(j = 0; j < 3; j++) {
-					rotationMatrix(i)(j) = (float)(((mat[(j+1)%3][(i+1)%3] * mat[(j+2)%3][(i+2)%3]) - (mat[(j+1)%3][(i+2)%3] * mat[(j+2)%3][(i+1)%3])) / determinant);
+					mat[i][j] = (float)(((mat[(j+1)%3][(i+1)%3] * mat[(j+2)%3][(i+2)%3]) - (mat[(j+1)%3][(i+2)%3] * mat[(j+2)%3][(i+1)%3])) / determinant);
+					rotationMatrix(i)(j) = static_cast< float >(mat[i][j]);
 				}
 			}
 			return curr_acc;
