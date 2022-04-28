@@ -9,7 +9,14 @@ int main() {
     });
     t.detach(); // run seperate from main thread
     
+    IMU imu;
+    std::thread t1([] { // [] {} == lambda 
+        imu.do_imu(); // do gui (which has loop inside of it)
+    });
+    t1.detach(); // run seperate from main thread
+    
     while (true) { // run forever because if main thread exists, side thread exists
+        this_thread::sleep_for(chrono::milliseconds(3));
         #ifdef JOYSTICK
         cout << "in Joystick controller" << endl;
         // Input from button goes 1-0 then we turn on
