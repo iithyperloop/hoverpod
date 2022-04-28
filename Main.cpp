@@ -3,8 +3,8 @@
 #include "Hoverpod/Actuator/Actuator.hpp"
 #include "Hoverpod/Motor/Motor.hpp"
 #ifdef __linux__
-#include "bus.h"
-#include "i2c.h"
+#include "Hoverpod/I2C/bus.h"
+#include "Hoverpod/I2C/i2c.h"
 #endif
 
 struct joystick_data { float x, y, z; };
