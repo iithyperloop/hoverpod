@@ -24,18 +24,3 @@ void Motor::decreaseSpeed(double val) {
     setSpeed(getSpeed() - val);
 }
 
-// Input from button goes 1-0 then we turn on
-if (buttonState == 1) {
-    if (buttonState == 0 ) {
-        for (int i = 0; i < takeOffSpeed; i++) {
-            increaseSpeed(i);
-        }
-        if (buttonState == 1) {
-            if (buttonState == 0) {
-                for (int j = 0; j > 0; j++) {
-                    decreaseSpeed(j);
-                }
-            }
-        }
-    }
-}
