@@ -10,7 +10,7 @@ int main() {
     t.detach(); // run seperate from main thread
     
     IMU imu;
-    std::thread t1([] { // [] {} == lambda 
+    std::thread t1([imu] { // [] {} == lambda 
         imu.do_imu(); // do gui (which has loop inside of it)
     });
     t1.detach(); // run seperate from main thread
