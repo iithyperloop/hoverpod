@@ -1,8 +1,8 @@
-#include "Hoverpod/GUI/GUI.hpp"
-#include "Hoverpod/IMU/IMU.hpp"
 #ifdef __linux__
 #include <iostream>
 #include <unistd.h>
+#include "Hoverpod/GUI/GUI.hpp"
+#include "Hoverpod/IMU/IMU.hpp"
 
 
 #ifdef JOYSTICK
@@ -70,3 +70,4 @@ int main() {
 
     return 1; // success (should never reach this)
 }
+#endif
