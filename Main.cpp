@@ -1,11 +1,8 @@
-#ifdef __linux__
-#include <iostream>
-#include <unistd.h>
 #include "Hoverpod/GUI/GUI.hpp"
 #include "Hoverpod/IMU/IMU.hpp"
 
 
-#ifdef JOYSTICK
+#ifdef JOYSTICK_OUTPUT
 #include "actuator.h"
 #include "motor.h"
 #endif
@@ -17,7 +14,7 @@ int main() {
     std::thread t([] { // [] {} == lambda
         while (true) { // run forever because if main thread exists, side thread exists
             this_thread::sleep_for(chrono::milliseconds(3));
-            #ifdef JOYSTICK
+            #ifdef JOYSTICK_READER
             #include "bus.h"
             #include "i2c.h"
 
@@ -70,4 +67,3 @@ int main() {
 
     return 1; // success (should never reach this)
 }
-#endif
