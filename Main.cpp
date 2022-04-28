@@ -15,7 +15,6 @@ int main() {
         while (true) { // run forever because if main thread exists, side thread exists
             this_thread::sleep_for(chrono::milliseconds(3));
             #ifdef JOYSTICK_READER
-            #include "bus.h"
             #include "i2c.h"
 
             /*
