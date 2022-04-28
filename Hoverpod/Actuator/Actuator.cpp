@@ -22,9 +22,6 @@ use namespace std;
 
 Actuator::Actuator() {
 
-	// input from Joystick [0,1023] for x,y,z
-	float joystickOutput[3];
-
 	// sub 512 from it so that it makes more sense logically in terms of coordinate system
 	float x_in = joystickOutput[0];
 	float y_in = joystickOutput[1];
@@ -78,9 +75,6 @@ Actuator::Actuator() {
 
 
 //Getters
-float [3] Actuator::getJoystickOutput() {
-	return joystickOutput;
-}
 
 float Actuator::getX() {
 	return x_in;
@@ -94,16 +88,16 @@ float Actuator::getZ() {
 	return z_in;
 }
 
-float Actuator::getX_Scale() {
-	return [x_scaleL, x_scaleR];
+tuple<float, float> getX_Scale() {
+	return { x_scaleL, x_scaleR };
 }
 
-float Actuator::getY_Scale() {
-	return [y_scaleB, y_scaleF];
+tuple<float, float> getY_Scale() {
+	return { y_scaleB, y_scaleF };
 }
 
-float Actuator::getZ_Scale() {
-	return [z_scaleCCW, z_scaleCW];
+tuple<float, float> getZ_Scale() {
+	return { z_scaleCCW, z_scaleCW };
 }
 
 float Actuator::getAct1() {
@@ -140,10 +134,6 @@ float Actuator::getAct8() {
 
 
 //Setters
-void Actuator::setJoystickOutput(float joystickOutput[]) {
-	joystickOutput[3] = {};
-}
-
 void Actuator::setX(float joystickOutput[]) {
 	x_in = joystickOutput[0];
 }
