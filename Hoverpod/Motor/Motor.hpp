@@ -13,4 +13,10 @@ public:
     void increaseSpeed(double val);
 
     void decreaseSpeed(double val);
+    
+    int getButtonState();
+    
+    void setButtonState(int val);
+    
+    void turnMotorOn();
 };
