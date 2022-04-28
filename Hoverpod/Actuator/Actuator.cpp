@@ -3,15 +3,43 @@
 
 use namespace std;
 
-int main() {
+
+/*
+* 
+* Linear actuators are connected to linear actuator controller.
+* On controller:
+* - FWD wire (green)
+* --- If set the pin to HIGH with arduino, then actuator extends
+* - REV wire (blue)
+* --- If set the pin to HIGH with arduino, then actuator retract
+* 
+* Out of both of these pins, one should be set to HIGH and one to LOW. 
+* If both are set to HIGH or both are set to LOW, it will not run.
+* 
+* 
+*/
+
+
+Actuator::Actuator() {
 
 	// input from Joystick [0,1023] for x,y,z
-	float joystickOutput[3] = {};
+	float joystickOutput[3];
 
 	// sub 512 from it so that it makes more sense logically in terms of coordinate system
 	float x_in = joystickOutput[0];
 	float y_in = joystickOutput[1];
 	float z_in = joystickOutput[2];
+
+	float x_scale[2];
+	float y_scale[2];
+	float z_scale[2];
+
+	float x_scaleL;
+	float x_scaleR;
+	float y_scaleF;
+	float y_scaleB;
+	float z_scaleCW;
+	float z_scaleCCW;
 
 	/*
 	* Directional Logic:
@@ -41,89 +69,365 @@ int main() {
 	float act7 = 0;
 	float act8 = 0;
 
-	float topMax = 4.875;
-	float topMin = -4.875;
-	float bottomMax = 4.188;
-	float bottomMin = -4.188;
+	const float topMax = 4.875;
+	const float topMin = -4.875;
+	const float bottomMax = 4.188;
+	const float bottomMin = -4.188;
+
+}
 
 
-	switch (x_in, y_in, z_in) {
-	case (x_in == 0 && y_in > 0 && y_in < 1023 && z_in > 0 && z_in < 1023):
-		// Move Left:     1+, 2-, 3-, 4-, 5+, 6-, 7-, 8-
-		act1 = topMax;
-		act2 = bottomMin;
-		act3 = topMin;
-		act4 = bottomMin;
-		act5 = topMax;
-		act6 = bottomMin;
-		act7 = topMin;
-		act8 = bottomMin;
-		break; //optional
-	case (x_in == 1023 && y_in > 0 && y_in < 1023 && z_in > 0 && z_in < 1023):
-		// Move Right:    1-, 2+, 3+, 4+, 5-, 6+, 7+, 8+
-		act1 = topMin;
-		act2 = bottomMax;
-		act3 = topMax;
-		act4 = bottomMax;
-		act5 = topMin;
-		act6 = bottomMax;
-		act7 = topMax;
-		act8 = bottomMax;
-		break; //optional
-	case (x_in > 0 && x_in < 1023 && y_in == 0 && z_in > 0 && z_in < 1023):
-		// Move Backward: 1+, 2+, 3+, 4-, 5+, 6+, 7+, 8-
-		act1 = topMax;
-		act2 = bottomMax;
-		act3 = topMax;
-		act4 = bottomMin;
-		act5 = topMax;
-		act6 = bottomMax;
-		act7 = topMax;
-		act8 = bottomMin;
-		break; //optional
-	case (x_in > 0 && x_in < 1023 && y_in == 1023 && z_in > 0 && z_in < 1023):
-		// Move Forward:  1-, 2-, 3+, 4-, 5+, 6+, 7-, 8+
-		act1 = topMin;
-		act2 = bottomMin;
-		act3 = topMax;
-		act4 = bottomMin;
-		act5 = topMax;
-		act6 = bottomMax;
-		act7 = topMin;
-		act8 = bottomMax;
-		break;
-	case (x_in > 0 && x_in < 1023 && y_in > 0 && y_in < 1023 && z_in == 0):
-		// Turn CCW:      1+, --, 3-, --, 5-, --, 7+, --
-		act1 = topMax;
-		act2 = 0;
-		act3 = topMin;
-		act4 = 0;
-		act5 = topMin;
-		act6 = 0;
-		act7 = topMax;
-		act8 = 0;
-		break;
-	case (x_in > 0 && x_in < 1023 && y_in > 0 && y_in < 1023 && z_in == 1023):
-		// Turn CW:       1-, --, 3+, --, 5+, --, 7-, --
-		act1 = topMin;
-		act2 = 0;
-		act3 = topMax;
-		act4 = 0;
-		act5 = topMax;
-		act6 = 0;
-		act7 = topMin;
-		act8 = 0;
-		break;	 
-	default:
-		// Return all actuators/engines to centered
-		// Don't move
-		act1 = 0;
-		act2 = 0;
-		act3 = 0;
-		act4 = 0;
-		act5 = 0;
-		act6 = 0;
-		act7 = 0;
-		act8 = 0;
+//Getters
+float [3] Actuator::getJoystickOutput() {
+	return joystickOutput;
+}
+
+float Actuator::getX() {
+	return x_in;
+}
+
+float Actuator::getY() {
+	return y_in;
+}
+
+float Actuator::getZ() {
+	return z_in;
+}
+
+float Actuator::getX_Scale() {
+	return [x_scaleL, x_scaleR];
+}
+
+float Actuator::getY_Scale() {
+	return [y_scaleB, y_scaleF];
+}
+
+float Actuator::getZ_Scale() {
+	return [z_scaleCCW, z_scaleCW];
+}
+
+float Actuator::getAct1() {
+	return act1;
+}
+
+float Actuator::getAct2() {
+	return act2;
+}
+
+float Actuator::getAct3() {
+	return act3;
+}
+
+float Actuator::getAct4() {
+	return act4;
+}
+
+float Actuator::getAct5() {
+	return act5;
+}
+
+float Actuator::getAct6() {
+	return act6;
+}
+
+float Actuator::getAct7() {
+	return act7;
+}
+
+float Actuator::getAct8() {
+	return act8;
+}
+
+
+//Setters
+void Actuator::setJoystickOutput(float joystickOutput[]) {
+	joystickOutput[3] = {};
+}
+
+void Actuator::setX(float joystickOutput[]) {
+	x_in = joystickOutput[0];
+}
+
+void Actuator::setY(float joystickOutput[]) {
+	y_in = joystickOutput[1];
+}
+
+void Actuator::setZ(float joystickOutput[]) {
+	z_in = joystickOutput[2];
+}
+
+void Actuator::setX_Scale(float x_in) {
+	if (x_in < (1023.0 / 2.0)) {
+		x_scaleL = x_in / 512.0;
+		x_scaleR = 0.0;
 	}
+	else if (x_in > (1023.0 / 2.0)) {
+		x_scaleL = 0.0;
+		x_scaleR = (x_in - 512.0) / 512.0;
+	}
+	else {
+		x_scaleL = 0.0;
+		x_scaleR = 0.0;
+	}
+}
+
+void Actuator::setY_Scale(float y_in) {
+	if (y_in < (1023.0 / 2.0)) {
+		y_scaleB = y_in / 512.0;
+		y_scaleF = 0.0;
+	}
+	else if (y_in > (1023.0 / 2.0)) {
+		y_scaleB = 0.0;
+		y_scaleF = (y_in - 512.0) / 512.0;
+	}
+	else {
+		y_scaleB = 0.0;
+		y_scaleF = 0.0;
+	}
+}
+
+void Actuator::setZ_Scale(float z_in) {
+	if (z_in < (1023.0 / 2.0)) {
+		z_scaleCCW = z_in / 512.0;
+		z_scaleCW = 0.0;
+	}
+	else if (z_in > (1023.0 / 2.0)) {
+		z_scaleCCW = 0.0;
+		z_scaleCW = (z_in - 512.0) / 512.0;
+	}
+	else {
+		z_scaleCCW = 0.0;
+		z_scaleCW = 0.0;
+	}
+}
+
+
+void Actuator::setAct1(float val) {
+	if (val > topMax) {
+		act1 = topMax;
+	}
+	else if (val < topMin) {
+		act1 = topMin;
+	}
+	else {
+		act1 = val;
+	}
+}
+
+void Actuator::setAct2(float val) {
+	if (val > bottomMax) {
+		act2 = bottomMax;
+	}
+	else if (val < bottomMin) {
+		act2 = bototmMin;
+	}
+	else {
+		act2 = val;
+	}
+}
+
+void Actuator::setAct3(float val) {
+	if (val > topMax) {
+		act3 = topMax;
+	}
+	else if (val < topMin) {
+		act3 = topMin;
+	}
+	else {
+		act3 = val;
+	}
+}
+
+void Actuator::setAct4(float val) {
+	if (val > bottomMax) {
+		act4 = bottomMax;
+	}
+	else if (val < bottomMin) {
+		act4 = bottomMin;
+	}
+	else {
+		act4 = val;
+	}
+}
+
+void Actuator::setAct5(float val) {
+	if (val > topMax) {
+		act5 = topMax;
+	}
+	else if (val < topMin) {
+		act5 = topMin;
+	}
+	else {
+		act5 = val;
+	}
+}
+
+void Actuator::setAct6(float val) {
+	if (val > bottomMax) {
+		act6 = bottomMax;
+	}
+	else if (val < bottomMin) {
+		act6 = bottomMin;
+	}
+	else {
+		act6 = val;
+	}
+}
+
+void Actuator::setAct7(float val) {
+	if (val > topMax) {
+		act7 = topMax;
+	}
+	else if (val < topMin) {
+		act7 = topMin;
+	}
+	else {
+		act7 = val;
+	}
+}
+
+void Actuator::setAct8(float val) {
+	if (val > bottomMax) {
+		act8 = bottomMax;
+	}
+	else if (val < bottomMin) {
+		act8 = bottomMin;
+	}
+	else {
+		act8 = val;
+	}
+}
+
+
+// Movement Methods (not sure what output should be since idk how to get the data to the actuators)
+void Actuator::moveForward() {
+	// Move Forward:  1-, 2-, 3+, 4-, 5+, 6+, 7-, 8+
+	float tempAct1 = getY_Scale()[1] * topMin;
+	float tempAct2 = getY_Scale()[1] * bottomMin;
+	float tempAct3 = getY_Scale()[1] * topMax;
+	float tempAct4 = getY_Scale()[1] * bottomMin;
+	float tempAct5 = getY_Scale()[1] * topMax;
+	float tempAct6 = getY_Scale()[1] * bottomMax;
+	float tempAct7 = getY_Scale()[1] * topMin;
+	float tempAct8 = getY_Scale()[1] * bottomMax;
+	
+	setAct1(tempAct1);
+	setAct2(tempAct2);
+	setAct3(tempAct3);
+	setAct4(tempAct4);
+	setAct5(tempAct5);
+	setAct6(tempAct6);
+	setAct7(tempAct7);
+	setAct8(tempAct8);
+
+}
+
+void Actuator::moveBackward() {
+	// Move Backward: 1+, 2+, 3+, 4-, 5+, 6+, 7+, 8-
+	float tempAct1 = getY_Scale()[0] * topMax;
+	float tempAct2 = getY_Scale()[0] * bottomMax;
+	float tempAct3 = getY_Scale()[0] * topMax;
+	float tempAct4 = getY_Scale()[0] * bottomMin;
+	float tempAct5 = getY_Scale()[0] * topMax;
+	float tempAct6 = getY_Scale()[0] * bottomMax;
+	float tempAct7 = getY_Scale()[0] * topMax;
+	float tempAct8 = getY_Scale()[0] * bottomMin;
+
+	setAct1(tempAct1);
+	setAct2(tempAct2);
+	setAct3(tempAct3);
+	setAct4(tempAct4);
+	setAct5(tempAct5);
+	setAct6(tempAct6);
+	setAct7(tempAct7);
+	setAct8(tempAct8);
+
+}
+
+void Actuator::moveRight() {
+	// Move Right:    1-, 2+, 3+, 4+, 5-, 6+, 7+, 8+
+	float tempAct1 = getX_Scale()[1] * topMin;
+	float tempAct2 = getX_Scale()[1] * bottomMax;
+	float tempAct3 = getX_Scale()[1] * topMax;
+	float tempAct4 = getX_Scale()[1] * bottomMax;
+	float tempAct5 = getX_Scale()[1] * topMin;
+	float tempAct6 = getX_Scale()[1] * bottomMax;
+	float tempAct7 = getX_Scale()[1] * topMax;
+	float tempAct8 = getX_Scale()[1] * bottomMax;
+
+	setAct1(tempAct1);
+	setAct2(tempAct2);
+	setAct3(tempAct3);
+	setAct4(tempAct4);
+	setAct5(tempAct5);
+	setAct6(tempAct6);
+	setAct7(tempAct7);
+	setAct8(tempAct8);
+
+}
+
+void Actuator::moveLeft() {
+	// Move Left:     1+, 2-, 3-, 4-, 5+, 6-, 7-, 8-
+	float tempAct1 = getX_Scale()[0] * topMax;
+	float tempAct2 = getX_Scale()[0] * bottomMin;
+	float tempAct3 = getX_Scale()[0] * topMin;
+	float tempAct4 = getX_Scale()[0] * bottomMin;
+	float tempAct5 = getX_Scale()[0] * topMax;
+	float tempAct6 = getX_Scale()[0] * bottomMin;
+	float tempAct7 = getX_Scale()[0] * topMin;
+	float tempAct8 = getX_Scale()[0] * bottomMin;
+
+	setAct1(tempAct1);
+	setAct2(tempAct2);
+	setAct3(tempAct3);
+	setAct4(tempAct4);
+	setAct5(tempAct5);
+	setAct6(tempAct6);
+	setAct7(tempAct7);
+	setAct8(tempAct8);
+
+}
+
+void Actuator::moveCCW() {
+	// Turn CCW:      1+, --, 3-, --, 5-, --, 7+, --
+	float tempAct1 = getZ_Scale()[0] * topMax;
+	float tempAct2 = 0.0;
+	float tempAct3 = getZ_Scale()[0] * topMin;
+	float tempAct4 = 0.0;
+	float tempAct5 = getZ_Scale()[0] * topMin;
+	float tempAct6 = 0.0;
+	float tempAct7 = getZ_Scale()[0] * topMax;
+	float tempAct8 = 0.0;
+
+	setAct1(tempAct1);
+	setAct2(tempAct2);
+	setAct3(tempAct3);
+	setAct4(tempAct4);
+	setAct5(tempAct5);
+	setAct6(tempAct6);
+	setAct7(tempAct7);
+	setAct8(tempAct8);
+
+}
+
+void Actuator::moveCW() {
+	// Turn CW:       1-, --, 3+, --, 5+, --, 7-, --
+	float tempAct1 = getZ_Scale()[1] * topMin;
+	float tempAct2 = 0.0;
+	float tempAct3 = getZ_Scale()[1] * topMax;
+	float tempAct4 = 0.0;
+	float tempAct5 = getZ_Scale()[1] * topMax;
+	float tempAct6 = 0.0;
+	float tempAct7 = getZ_Scale()[1] * topMin;
+	float tempAct8 = 0.0;
+
+	setAct1(tempAct1);
+	setAct2(tempAct2);
+	setAct3(tempAct3);
+	setAct4(tempAct4);
+	setAct5(tempAct5);
+	setAct6(tempAct6);
+	setAct7(tempAct7);
+	setAct8(tempAct8);
+
 }
