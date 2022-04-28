@@ -1,11 +1,13 @@
 #include "Hoverpod/GUI/GUI.hpp"
 #include "Hoverpod/IMU/IMU.hpp"
-
-
-#ifdef JOYSTICK_OUTPUT
-#include "actuator.h"
-#include "motor.h"
+#include "Hoverpod/Actuator/Actuator.hpp"
+#include "Hoverpod/Motor/Motor.hpp"
+#ifdef __linux__
+#include "bus.h"
+#include "i2c.h"
 #endif
+
+struct joystick_data { float x, y, z; };
 
 int main() {
     // https://en.cppreference.com/w/cpp/thread/thread
@@ -14,8 +16,11 @@ int main() {
     std::thread t([] { // [] {} == lambda
         while (true) { // run forever because if main thread exists, side thread exists
             this_thread::sleep_for(chrono::milliseconds(3));
-            #ifdef JOYSTICK_READER
-            #include "i2c.h"
+            
+            auto get_joystick_data = []() -> joystick_data {
+                // do that here
+                return joystick_data{1,1,1}; // placeholder
+            };
 
             /*
             my thought process:
@@ -30,8 +35,11 @@ int main() {
 
               float[0] = a;
               float[1] = b;
+>>>>>>> abbd54760d6a20d4fc18c19d6f02357ec7920850
 
+            // faith does xyz handling (insert here)
 
+            /*
               **FOR XYZ**
               jetson recieves data in this class
                   jetson determines what the pod should do i.e. moveForward(), moveBackward(), moveLeft(), moveRight(), rotateCW(), rotateCCW()
@@ -48,10 +56,7 @@ int main() {
 
 
             */
-
               cout << "in Joystick controller" << endl;
-
-            #endif
             }
     });
     t.detach(); // run seperate from main thread
