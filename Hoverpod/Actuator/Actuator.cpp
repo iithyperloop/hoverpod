@@ -1,9 +1,4 @@
 #include "Actuator.hpp"
-#include <iostream>
-
-use namespace std;
-
-
 /*
 * 
 * Linear actuators are connected to linear actuator controller.
@@ -19,8 +14,7 @@ use namespace std;
 * 
 */
 
-
-Actuator::Actuator() {
+Actuator::Actuator(int length) {
 
 	// sub 512 from it so that it makes more sense logically in terms of coordinate system
 	float x_in = joystickOutput[0];
@@ -73,7 +67,6 @@ Actuator::Actuator() {
 
 }
 
-
 //Getters
 
 float Actuator::getX() {
@@ -88,16 +81,16 @@ float Actuator::getZ() {
 	return z_in;
 }
 
-tuple<float, float> getX_Scale() {
-	return { x_scaleL, x_scaleR };
+std::tuple<float, float> Actuator::getX_Scale() {
+	return std::make_tuple(x_scaleL, x_scaleR);
 }
 
-tuple<float, float> getY_Scale() {
-	return { y_scaleB, y_scaleF };
+std::tuple<float, float> Actuator::getY_Scale() {
+	return std::make_tuple(y_scaleB, y_scaleF);
 }
 
-tuple<float, float> getZ_Scale() {
-	return { z_scaleCCW, z_scaleCW };
+std::tuple<float, float> Actuator::getZ_Scale() {
+	return std::make_tuple(z_scaleCCW, z_scaleCW);
 }
 
 float Actuator::getAct1() {
@@ -209,7 +202,7 @@ void Actuator::setAct2(float val) {
 		act2 = bottomMax;
 	}
 	else if (val < bottomMin) {
-		act2 = bototmMin;
+		act2 = bottomMin;
 	}
 	else {
 		act2 = val;
@@ -292,14 +285,14 @@ void Actuator::setAct8(float val) {
 // Movement Methods (not sure what output should be since idk how to get the data to the actuators)
 void Actuator::moveForward() {
 	// Move Forward:  1-, 2-, 3+, 4-, 5+, 6+, 7-, 8+
-	float tempAct1 = getY_Scale()[1] * topMin;
-	float tempAct2 = getY_Scale()[1] * bottomMin;
-	float tempAct3 = getY_Scale()[1] * topMax;
-	float tempAct4 = getY_Scale()[1] * bottomMin;
-	float tempAct5 = getY_Scale()[1] * topMax;
-	float tempAct6 = getY_Scale()[1] * bottomMax;
-	float tempAct7 = getY_Scale()[1] * topMin;
-	float tempAct8 = getY_Scale()[1] * bottomMax;
+	float tempAct1 = std::get<1>(getY_Scale()) * topMin;
+	float tempAct2 = std::get<1>(getY_Scale()) * bottomMin;
+	float tempAct3 = std::get<1>(getY_Scale()) * topMax;
+	float tempAct4 = std::get<1>(getY_Scale()) * bottomMin;
+	float tempAct5 = std::get<1>(getY_Scale()) * topMax;
+	float tempAct6 = std::get<1>(getY_Scale()) * bottomMax;
+	float tempAct7 = std::get<1>(getY_Scale()) * topMin;
+	float tempAct8 = std::get<1>(getY_Scale()) * bottomMax;
 	
 	setAct1(tempAct1);
 	setAct2(tempAct2);
@@ -314,14 +307,14 @@ void Actuator::moveForward() {
 
 void Actuator::moveBackward() {
 	// Move Backward: 1+, 2+, 3+, 4-, 5+, 6+, 7+, 8-
-	float tempAct1 = getY_Scale()[0] * topMax;
-	float tempAct2 = getY_Scale()[0] * bottomMax;
-	float tempAct3 = getY_Scale()[0] * topMax;
-	float tempAct4 = getY_Scale()[0] * bottomMin;
-	float tempAct5 = getY_Scale()[0] * topMax;
-	float tempAct6 = getY_Scale()[0] * bottomMax;
-	float tempAct7 = getY_Scale()[0] * topMax;
-	float tempAct8 = getY_Scale()[0] * bottomMin;
+	float tempAct1 = std::get<0>(getY_Scale()) * topMax;
+	float tempAct2 = std::get<0>(getY_Scale()) * bottomMax;
+	float tempAct3 = std::get<0>(getY_Scale()) * topMax;
+	float tempAct4 = std::get<0>(getY_Scale()) * bottomMin;
+	float tempAct5 = std::get<0>(getY_Scale()) * topMax;
+	float tempAct6 = std::get<0>(getY_Scale()) * bottomMax;
+	float tempAct7 = std::get<0>(getY_Scale()) * topMax;
+	float tempAct8 = std::get<0>(getY_Scale()) * bottomMin;
 
 	setAct1(tempAct1);
 	setAct2(tempAct2);
@@ -336,14 +329,14 @@ void Actuator::moveBackward() {
 
 void Actuator::moveRight() {
 	// Move Right:    1-, 2+, 3+, 4+, 5-, 6+, 7+, 8+
-	float tempAct1 = getX_Scale()[1] * topMin;
-	float tempAct2 = getX_Scale()[1] * bottomMax;
-	float tempAct3 = getX_Scale()[1] * topMax;
-	float tempAct4 = getX_Scale()[1] * bottomMax;
-	float tempAct5 = getX_Scale()[1] * topMin;
-	float tempAct6 = getX_Scale()[1] * bottomMax;
-	float tempAct7 = getX_Scale()[1] * topMax;
-	float tempAct8 = getX_Scale()[1] * bottomMax;
+	float tempAct1 = std::get<1>(getY_Scale()) * topMin;
+	float tempAct2 = std::get<1>(getY_Scale()) * bottomMax;
+	float tempAct3 = std::get<1>(getY_Scale()) * topMax;
+	float tempAct4 = std::get<1>(getY_Scale()) * bottomMax;
+	float tempAct5 = std::get<1>(getY_Scale()) * topMin;
+	float tempAct6 = std::get<1>(getY_Scale()) * bottomMax;
+	float tempAct7 = std::get<1>(getY_Scale()) * topMax;
+	float tempAct8 = std::get<1>(getY_Scale()) * bottomMax;
 
 	setAct1(tempAct1);
 	setAct2(tempAct2);
@@ -358,14 +351,14 @@ void Actuator::moveRight() {
 
 void Actuator::moveLeft() {
 	// Move Left:     1+, 2-, 3-, 4-, 5+, 6-, 7-, 8-
-	float tempAct1 = getX_Scale()[0] * topMax;
-	float tempAct2 = getX_Scale()[0] * bottomMin;
-	float tempAct3 = getX_Scale()[0] * topMin;
-	float tempAct4 = getX_Scale()[0] * bottomMin;
-	float tempAct5 = getX_Scale()[0] * topMax;
-	float tempAct6 = getX_Scale()[0] * bottomMin;
-	float tempAct7 = getX_Scale()[0] * topMin;
-	float tempAct8 = getX_Scale()[0] * bottomMin;
+	float tempAct1 = std::get<0>(getY_Scale()) * topMax;
+	float tempAct2 = std::get<0>(getY_Scale()) * bottomMin;
+	float tempAct3 = std::get<0>(getY_Scale()) * topMin;
+	float tempAct4 = std::get<0>(getY_Scale()) * bottomMin;
+	float tempAct5 = std::get<0>(getY_Scale()) * topMax;
+	float tempAct6 = std::get<0>(getY_Scale()) * bottomMin;
+	float tempAct7 = std::get<0>(getY_Scale()) * topMin;
+	float tempAct8 = std::get<0>(getY_Scale()) * bottomMin;
 
 	setAct1(tempAct1);
 	setAct2(tempAct2);
@@ -380,13 +373,13 @@ void Actuator::moveLeft() {
 
 void Actuator::moveCCW() {
 	// Turn CCW:      1+, --, 3-, --, 5-, --, 7+, --
-	float tempAct1 = getZ_Scale()[0] * topMax;
+	float tempAct1 = std::get<0>(getY_Scale())* topMax;
 	float tempAct2 = 0.0;
-	float tempAct3 = getZ_Scale()[0] * topMin;
+	float tempAct3 = std::get<0>(getY_Scale())* topMin;
 	float tempAct4 = 0.0;
-	float tempAct5 = getZ_Scale()[0] * topMin;
+	float tempAct5 = std::get<0>(getY_Scale())* topMin;
 	float tempAct6 = 0.0;
-	float tempAct7 = getZ_Scale()[0] * topMax;
+	float tempAct7 = std::get<0>(getY_Scale())* topMax;
 	float tempAct8 = 0.0;
 
 	setAct1(tempAct1);
@@ -402,13 +395,13 @@ void Actuator::moveCCW() {
 
 void Actuator::moveCW() {
 	// Turn CW:       1-, --, 3+, --, 5+, --, 7-, --
-	float tempAct1 = getZ_Scale()[1] * topMin;
+	float tempAct1 = std::get<1>(getY_Scale()) * topMin;
 	float tempAct2 = 0.0;
-	float tempAct3 = getZ_Scale()[1] * topMax;
+	float tempAct3 = std::get<1>(getY_Scale()) * topMax;
 	float tempAct4 = 0.0;
-	float tempAct5 = getZ_Scale()[1] * topMax;
+	float tempAct5 = std::get<1>(getY_Scale()) * topMax;
 	float tempAct6 = 0.0;
-	float tempAct7 = getZ_Scale()[1] * topMin;
+	float tempAct7 = std::get<1>(getY_Scale()) * topMin;
 	float tempAct8 = 0.0;
 
 	setAct1(tempAct1);
