@@ -9,6 +9,29 @@ int main() {
         while (true) { // run forever because if main thread exists, side thread exists
             this_thread::sleep_for(chrono::milliseconds(3));
             #ifdef JOYSTICK
+            
+            /*
+            my thought process:
+              communication: Joystick --> arduino --> jetson --> actuators/motors
+
+              joystick data comes in as x,y,z and 1/0 where x-->x_axis, y-->y_axis, z-->roatation || button = HIGH/LOW,
+              arduino parses data and sends to i2c using a Master-Slave connection (ask Electrical team for details)
+
+
+              **FOR XYZ**
+              jetson recieves data in this class
+                  jetson determines what the pod should do i.e. moveForward(), moveBackward(), moveLeft(), moveRight(), rotateCW(), rotateCCW()
+                  this is communicating with the actuator class where the commands ^ exists
+
+               **FOR Button**
+               jetson recieves a HIGH when button is pressed 
+               if motors are off:
+                    turnMotorOn() (ask Electrical team for details)
+               else:
+                    turnMotorOff() (ask Electrical team for details)
+
+            */
+            
             cout << "in Joystick controller" << endl;
             // Input from button goes 1-0 then we turn on
             if (buttonState == 1) {
@@ -24,16 +47,8 @@ int main() {
                     }
                 }
             }
-            }
-            #endif
-            #ifdef GUI
-            cout << "in GUI controller" << endl;  #endif
-            #endif
-
-            #ifdef IMU
-            cout << "in Joystick controller" << endl;
-            #endif
-        } 
+         }
+            
     });
     t.detach(); // run seperate from main thread
     
