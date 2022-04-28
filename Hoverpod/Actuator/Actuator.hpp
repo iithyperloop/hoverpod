@@ -10,6 +10,8 @@ enum class ActuatorStatus
 
 class Actuator {
     int length;
+    float joystickOutput[];
+    
 public:
     Actuator(int length = 0);
 
