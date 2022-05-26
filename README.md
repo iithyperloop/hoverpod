@@ -1,4 +1,4 @@
-# Illinois Tech Hyperloop (**Still Incomplete** Website: __________ )
+# Illinois Tech Hyperloop ( Website: __________ )
 Hyperloop is an approach to reinvent cross continental travel; our organization built a Hoverpod that levitates using the principles of magnetic and electric conductance with a strong integration of power electronics.  
 
 # Project Description
