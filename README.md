@@ -22,10 +22,7 @@ A User Interface connected to our main PC, the Jetson Nano, that displays curren
 # What is Threading and How do we run our System
 
 # Credits
-## Software Team Lead:        
-Faith Busche
 ## Software Team Members:
-Braeden Weaver, Ty Dwyer, Aleks Popovic, Tabor Alemu, Tejash Panda
 ![GitHub Contributors Image](https://contrib.rocks/image?repo=hyperloopiit/hoverpod)
 <br></br>
 
