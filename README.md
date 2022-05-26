@@ -1,3 +1,5 @@
+[Build](https://github.com/hyperloopiit/hoverpod/actions/workflows/cmake.yml/badge.svg)
+<br></br>
 # Illinois Tech Hyperloop ( Website: __________ )
 Hyperloop is an approach to reinvent cross continental travel; our organization built a Hoverpod that levitates using the principles of magnetic and electric conductance with a strong integration of power electronics.  
 
@@ -24,6 +26,8 @@ A User Interface connected to our main PC, the Jetson Nano, that displays curren
 Faith Busche
 ## Software Team Members:
 Braeden Weaver, Ty Dwyer, Aleks Popovic, Tabor Alemu, Tejash Panda
+![GitHub Contributors Image](https://contrib.rocks/image?repo=hyperloopiit/hoverpod)
+<br></br>
 
 ## Tech Sponsors:                  
 SHI, 
