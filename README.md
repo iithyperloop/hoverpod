@@ -26,18 +26,18 @@ Faith Busche
 Braeden Weaver, Ty Dwyer, Aleks Popovic, Tabor Alemu, Tejash Panda
 
 ## Tech Sponsors:                  
-SHI
-Microsoft
-Meta
-Mathworks
-Solidworks
-Ansys
-LG
-UGC
-Logitech
-Intel 
-Raspberry Pi
-Arduino
+SHI, 
+Microsoft, 
+Meta, 
+Mathworks, 
+Solidworks, 
+Ansys, 
+LG, 
+UGC, 
+Logitech, 
+Intel,  
+Raspberry Pi, 
+Arduino, 
 Dragon Plate
 
 ## Faculty + School:
