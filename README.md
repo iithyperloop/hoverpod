@@ -44,3 +44,6 @@ Dragon Plate
 ## Faculty + School:
 Illinois Institute of Technology
 
+# Wiki
+Check out the [Wiki](https://github.com/hyperloopiit/hoverpod/wiki) for build instructions if your machine isn't Unix arm64
+
